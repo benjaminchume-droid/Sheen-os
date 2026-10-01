@@ -310,6 +310,12 @@ jobs:
       - name: Test adaptive Vision planner
         run: sh ./tools/test-adaptive.sh
 
+      - name: Validate Android runtime contract
+        run: sh ./tools/validate-android-runtime.sh
+
+      - name: Test Android runtime isolation
+        run: sh ./tools/test-android-runtime.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
