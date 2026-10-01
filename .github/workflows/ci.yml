@@ -178,6 +178,12 @@ jobs:
       - name: Test broadcast abstraction
         run: sh ./tools/test-broadcast.sh
 
+      - name: Validate live playback contract
+        run: sh ./tools/validate-live.sh
+
+      - name: Test live playback
+        run: sh ./tools/test-live.sh
+
       - name: Validate scan contract
         run: sh ./tools/validate-scan.sh
 
