@@ -46,7 +46,8 @@ make -s kernelversion > "$KERNEL/kernel.release"
 sha256sum .config | cut -d" " -f1 > "$KERNEL/config.sha256"
 
 cd "$ROOT"
-mkdir -p "$INITRAMFS/root"/{bin,sbin,usr/bin,usr/sbin,dev,proc,sys,run,tmp}
+mkdir -p "$INITRAMFS/root/bin" "$INITRAMFS/root/sbin" "$INITRAMFS/root/usr/bin" "$INITRAMFS/root/usr/sbin"
+mkdir -p "$INITRAMFS/root/dev/pts" "$INITRAMFS/root/proc" "$INITRAMFS/root/sys" "$INITRAMFS/root/run" "$INITRAMFS/root/tmp" "$INITRAMFS/root/etc"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$INITRAMFS/root/bin/busybox"
 chmod 0755 "$INITRAMFS/root/bin/busybox"
@@ -56,6 +57,7 @@ for app in sh mount umount cat echo uname basename; do
 done
 cp boot/initramfs/init "$INITRAMFS/root/init"
 chmod 0755 "$INITRAMFS/root/init"
+printf '%s\n' /dev /dev/pts /proc /sys /run /tmp /bin /sbin /usr/bin /usr/sbin /etc > "$INITRAMFS/root/etc/initramfs.dirs"
 
 (
     cd "$INITRAMFS/root"
