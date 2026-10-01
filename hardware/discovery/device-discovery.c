@@ -106,7 +106,7 @@ static void scan_tree(const char *root, const char *group, int depth) {
 
 int main(void) {
     if(access("/sys/class",R_OK|X_OK)!=0) { fprintf(stderr,"sheen-hw-discover: /sys/class unavailable: %s\\n",strerror(errno)); return 2; }
-    for(size_t i=0;class_names[i];++i) scan_tree("/sys/class",class_names[i],0);
+    for(size_t i=0;class_names[i];++i) { char root[PATH_MAX]; snprintf(root,sizeof(root),"/sys/class/%s",class_names[i]); scan_tree(root,class_names[i],0); }
     scan_tree("/sys/bus/pci/devices","pci",0);
     scan_tree("/sys/bus/usb/devices","usb",0);
     return 0;
