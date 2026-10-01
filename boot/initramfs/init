@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+printf '%s\n' 'Sheen initramfs: early userspace'
+# Real device discovery and root handoff will be implemented here.

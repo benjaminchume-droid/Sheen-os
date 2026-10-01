@@ -1,0 +1,1 @@
+Kernel configuration will be expanded from hardware capability requirements. File intentionally kept small until the supported hardware matrix is defined.

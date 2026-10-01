@@ -1,0 +1,1 @@
+[target]\narch="x86_64"\nboot="uefi"\nmode="usb"\n

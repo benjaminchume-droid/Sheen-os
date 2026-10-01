@@ -1,0 +1,8 @@
+.build/
+out/
+dist/
+*.img
+*.iso
+*.qcow2
+*.log
+.cache/

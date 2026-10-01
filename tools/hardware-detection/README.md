@@ -1,0 +1,1 @@
+Hardware capability inventory generation.
