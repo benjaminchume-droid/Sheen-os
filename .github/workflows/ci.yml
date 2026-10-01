@@ -28,6 +28,9 @@ jobs:
       - name: Validate UEFI boot contract
         run: sh ./tools/validate-uefi.sh x86_64-uefi-usb
 
+      - name: Validate initramfs contract
+        run: sh ./tools/validate-initramfs.sh x86_64-uefi-usb
+
   stage1:
     needs: foundation
     runs-on: ubuntu-latest
