@@ -4,7 +4,7 @@ ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 TARGET="${1:-x86_64-uefi-usb}"
 BUILD="$ROOT/out/$TARGET"
 IMAGE="$BUILD/sheen-$TARGET.img"
-"$ROOT/tools/validate-usb.sh" "$TARGET"
+sh "$ROOT/tools/validate-usb.sh" "$TARGET"
 [ -s "$IMAGE" ] || { echo "missing USB image: $IMAGE" >&2; exit 1; }
 command -v sgdisk >/dev/null 2>&1 || { echo "missing host tool: sgdisk" >&2; exit 1; }
 command -v mcopy >/dev/null 2>&1 || { echo "missing host tool: mcopy" >&2; exit 1; }
