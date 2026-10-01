@@ -13,7 +13,7 @@ static int find_pmt_pid(const unsigned char *s,size_t n,uint16_t *program,uint16
 }
 static int parse_pmt(const unsigned char *s,size_t n,sheen_demux_program *prog){
     if(n<12||s[0]!=0x02)return -1;size_t len=((s[1]&0x0f)<<8)|s[2];if(3+len>n)return -1;prog->program_number=u16(s+3);prog->pcr_pid=(uint16_t)(((s[8]&0x1f)<<8)|s[9]);size_t info=12+(((s[10]&0x0f)<<8)|s[11]);size_t end=3+len-4;if(info>end)return -1;size_t p=info;uint8_t idx=0;
-    while(p+5<=end&&prog->stream_count<SHEEN_DEMUX_MAX_STREAMS){uint8_t st=s[p];uint16_t pid=(uint16_t)(((s[p+1]&0x1f)<<8)|s[p+2]);size_t es=6+(((s[p+3]&0x0f)<<8)|s[p+4]);if(p+es>end)break;prog->streams[prog->stream_count++]=(sheen_demux_stream){pid,st,idx++};p+=es;}return 0;
+    while(p+5<=end&&prog->stream_count<SHEEN_DEMUX_MAX_STREAMS){uint8_t st=s[p];uint16_t pid=(uint16_t)(((s[p+1]&0x1f)<<8)|s[p+2]);size_t es=5+(((s[p+3]&0x0f)<<8)|s[p+4]);if(p+es>end)break;prog->streams[prog->stream_count++]=(sheen_demux_stream){pid,st,idx++};p+=es;}return 0;
 }
 int sheen_demux_mpegts_file(const char *path,sheen_demux_result *r){
     if(!path||!r)return EINVAL;memset(r,0,sizeof(*r));snprintf(r->source,sizeof(r->source),"%s",path);snprintf(r->container,sizeof(r->container),"%s","mpeg-ts");
