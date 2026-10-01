@@ -1,0 +1,48 @@
+schema_version = 1
+id = "x86_64-uefi-usb"
+description = "Generic x86-64 UEFI USB boot target for PCs and laptops"
+
+[platform]
+architecture = "x86_64"
+firmware = "uefi"
+deployment = "usb"
+board = "generic"
+cpu = "generic-x86_64"
+
+[kernel]
+version = "6.12.51"
+source = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.51.tar.xz"
+config_fragment = "build/kernel.fragment"
+
+[image]
+format = "gpt"
+size_mb = 512
+
+[image.esp]
+filesystem = "fat32"
+label = "SHEEN"
+type_guid = "ef00"
+
+[boot]
+loader = "grub"
+removable = true
+nvram = false
+
+[capabilities]
+drm_kms = true
+uefi = true
+pci = true
+usb = true
+storage = true
+audio = true
+ethernet = true
+wifi = true
+bluetooth = false
+tuner = false
+camera = false
+touch = false
+
+[compatibility]
+android = "future"
+android_tv = "future"
+arm64 = false
