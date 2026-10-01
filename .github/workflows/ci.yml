@@ -184,6 +184,12 @@ jobs:
       - name: Test channel scanning plan
         run: sh ./tools/test-scan.sh
 
+      - name: Validate channel database contract
+        run: sh ./tools/validate-channel-db.sh
+
+      - name: Test channel database
+        run: sh ./tools/test-channel-db.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
