@@ -46,6 +46,7 @@ make -s kernelversion > "$KERNEL/kernel.release"
 sha256sum .config | cut -d" " -f1 > "$KERNEL/config.sha256"
 
 cd "$ROOT"
+sh "$ROOT/scripts/build-rootfs.sh" "$TARGET"
 mkdir -p "$INITRAMFS/root/bin" "$INITRAMFS/root/sbin" "$INITRAMFS/root/usr/bin" "$INITRAMFS/root/usr/sbin"
 mkdir -p "$INITRAMFS/root/dev/pts" "$INITRAMFS/root/proc" "$INITRAMFS/root/sys" "$INITRAMFS/root/run" "$INITRAMFS/root/tmp" "$INITRAMFS/root/etc"
 busybox_path="$(command -v busybox)"
