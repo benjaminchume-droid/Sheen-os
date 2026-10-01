@@ -124,6 +124,12 @@ jobs:
       - name: Test demux parser
         run: sh ./tools/test-demux.sh
 
+      - name: Validate decoder pipeline contract
+        run: sh ./tools/validate-decoder.sh
+
+      - name: Test decoder pipeline
+        run: sh ./tools/test-decoder.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
