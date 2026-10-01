@@ -37,6 +37,9 @@ jobs:
       - name: Validate root filesystem contract
         run: sh ./tools/validate-rootfs.sh x86_64-uefi-usb
 
+      - name: Validate USB image contract
+        run: sh ./tools/validate-usb.sh x86_64-uefi-usb
+
   stage1:
     needs: foundation
     runs-on: ubuntu-latest
