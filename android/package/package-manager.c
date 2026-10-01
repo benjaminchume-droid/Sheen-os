@@ -217,9 +217,18 @@ static int apk_inspect_internal(const char *apk,sheen_android_package_info *info
     free(manifest);
     if(rc){close(fd);return rc;}
     rc=locate_entry(fd,cd_off,cd_size,"classes.dex",&method,&comp,&uncomp,&local);
-    if(!rc)info->has_dex=1;
+    if(!rc){
+        if(uncomp<8){rc=EPROTO;}
+        else {
+            uint8_t *dex=NULL;size_t dex_size=0;
+            rc=extract_entry(fd,local,method,comp,uncomp,&dex,&dex_size);
+            if(!rc && dex_size>=8 && !memcmp(dex,"dex\n035\0",8)) info->has_dex=1;
+            else if(!rc) rc=EPROTO;
+            free(dex);
+        }
+    }
     close(fd);
-    return info->has_dex?0:ENOENT;
+    return info->has_dex?0:(rc?rc:ENOENT);
 }
 
 int sheen_android_package_inspect(const char *apk_path,sheen_android_package_info *info){
