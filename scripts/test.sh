@@ -32,3 +32,5 @@ sh "$ROOT/tools/test-service-manager.sh"
 sh "$ROOT/tools/test-ipc-bus.sh"
 
 sh "$ROOT/tools/test-config.sh"
+
+sh "$ROOT/tools/test-logging.sh"
