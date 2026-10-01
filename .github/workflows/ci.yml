@@ -322,6 +322,12 @@ jobs:
       - name: Test Android Binder bridge
         run: sh ./tools/test-android-binder.sh
 
+      - name: Validate Android graphics contract
+        run: sh ./tools/validate-android-graphics.sh
+
+      - name: Test Android graphics bridge
+        run: sh ./tools/test-android-graphics.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
