@@ -346,6 +346,12 @@ jobs:
       - name: Test Android storage bridge
         run: sh ./tools/test-android-storage.sh
 
+      - name: Validate Android permissions contract
+        run: sh ./tools/validate-android-permissions.sh
+
+      - name: Test Android permission bridge
+        run: sh ./tools/test-android-permissions.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
