@@ -4,7 +4,7 @@ ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 TARGET="${1:-x86_64-uefi-usb}"
 BUILD="$ROOT/out/$TARGET"
 INITRAMFS="$BUILD/initramfs/initramfs.img"
-"$ROOT/tools/validate-pid1.sh" "$TARGET"
+sh "$ROOT/tools/validate-pid1.sh" "$TARGET"
 command -v cpio >/dev/null 2>&1 || { echo "missing host tool: cpio" >&2; exit 1; }
 command -v gzip >/dev/null 2>&1 || { echo "missing host tool: gzip" >&2; exit 1; }
 tmp="$(mktemp -d)"
