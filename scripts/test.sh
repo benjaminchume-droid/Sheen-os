@@ -100,3 +100,7 @@ sh "$ROOT/tools/test-cast-session.sh"
 sh "$ROOT/tools/test-cast-devices.sh"
 
 sh "$ROOT/tools/test-vision-frame.sh"
+
+sh "$ROOT/tools/test-vision-accel.sh"
+
+sh "$ROOT/tools/test-scaler.sh"
