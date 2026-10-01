@@ -9,12 +9,12 @@ cleanup(){rm -rf "$tmp";}
 trap cleanup EXIT INT TERM
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/system/logging/include" "$ROOT/system/logging/log.c" "$ROOT/system/logging/log-cli.c" -o "$tmp/sheen-log"
 gcc -std=c11 -O2 -Wall -Wextra -Werror "$ROOT/system/diagnostics/diagnose.c" -o "$tmp/sheen-diag"
-"$tmp/sheen-log" info test "hello Sheen"
-"$tmp/sheen-log" warn test "second message"
-[ "$(wc -l < /run/sheen/logs/system.jsonl)" -ge 2 ] 2>/dev/null || { "$tmp/sheen-log" info test "hello Sheen" >/dev/null; }
+SHEEN_LOG_PATH="$LOG" "$tmp/sheen-log" info test "hello Sheen"
+SHEEN_LOG_PATH="$LOG" "$tmp/sheen-log" warn test "second message"
 mkdir -p "$tmp/root/run/sheen/logs"
 LOG="$tmp/root/run/sheen/logs/system.jsonl"
-"$tmp/sheen-log" >/dev/null 2>&1 || true
+SHEEN_LOG_PATH="$LOG" "$tmp/sheen-log" info test "hello Sheen"
+SHEEN_LOG_PATH="$LOG" "$tmp/sheen-log" warn test "second message"
 python3 - "$LOG" <<'PY'
 import json,sys
 lines=open(sys.argv[1],encoding="utf-8").read().splitlines()
