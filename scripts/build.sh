@@ -8,6 +8,10 @@ INITRAMFS="$BUILD/initramfs"
 IMAGE="$BUILD/sheen-x86_64-uefi.img"
 
 . "$ROOT/build/config.env"
+TARGET_FILE="$ROOT/build/targets/$TARGET.env"
+[ -f "$TARGET_FILE" ] || { echo "unknown target: $TARGET" >&2; exit 1; }
+. "$TARGET_FILE"
+"$ROOT/tools/validate-kernel.sh" "$TARGET"
 
 need() {
     command -v "$1" >/dev/null 2>&1 || { echo "missing host tool: $1" >&2; exit 1; }
@@ -32,10 +36,13 @@ tar -xJf "$archive" -C "$BUILD/src"
 cd "$src"
 make mrproper
 make defconfig
-cat "$ROOT/build/kernel.fragment" >> .config
+cat "$ROOT/$SHEEN_KERNEL_CONFIG_FRAGMENT" >> .config
 make olddefconfig
 make -j"$(getconf _NPROCESSORS_ONLN)" bzImage
 cp arch/x86/boot/bzImage "$KERNEL/bzImage"
+cp .config "$KERNEL/.config"
+make -s kernelversion > "$KERNEL/kernel.release"
+sha256sum .config | cut -d" " -f1 > "$KERNEL/config.sha256"
 
 cd "$ROOT"
 mkdir -p "$INITRAMFS/root"/{bin,sbin,usr/bin,usr/sbin,dev,proc,sys,run,tmp}
