@@ -84,7 +84,7 @@ mkdir -p "$BUILD/mnt/efi"
 mount "$part" "$BUILD/mnt/efi"
 mkdir -p "$BUILD/mnt/efi/sheen"
 
-grub-install --target=x86_64-efi     --efi-directory="$BUILD/mnt/efi"     --boot-directory="$BUILD/mnt/efi/boot"     --removable --no-nvram --recheck
+grub-install --target="$SHEEN_GRUB_TARGET" --efi-directory="$BUILD/mnt/efi"     --boot-directory="$BUILD/mnt/efi/boot"     --removable --no-nvram --recheck
 
 cp "$KERNEL/bzImage" "$BUILD/mnt/efi/sheen/kernel"
 cp "$INITRAMFS/initramfs.img" "$BUILD/mnt/efi/sheen/initramfs.img"
