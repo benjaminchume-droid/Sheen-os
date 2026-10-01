@@ -98,9 +98,16 @@ static void stop_all(void){
     for(size_t i=0;i<service_count;i++)if(services[i].pid>0)waitpid(services[i].pid,NULL,0);
 }
 
+static int mkdir_p(const char *path){
+    char buf[4096]; size_t n=strlen(path); if(n>=sizeof(buf))return -1; memcpy(buf,path,n+1);
+    for(size_t i=1;i<n;i++) if(buf[i]=='/'){buf[i]=0; if(mkdir(buf,0755)<0&&errno!=EEXIST)return -1; buf[i]='/';}
+    if(mkdir(buf,0755)<0&&errno!=EEXIST)return -1; return 0;
+}
+
 static int write_status(const char *path){
     char dir[4096]; snprintf(dir,sizeof(dir),"%s",path); char *slash=strrchr(dir,'/'); if(!slash)return -1; *slash=0;
-    mkdir(dir,0755); char tmp[4096]; snprintf(tmp,sizeof(tmp),"%s.tmp.%ld",path,(long)getpid()); FILE *f=fopen(tmp,"w"); if(!f)return -1;
+    if(mkdir_p(dir)<0)return -1;
+    char tmp[4096]; int n=snprintf(tmp,sizeof(tmp),"%s.tmp.%ld",path,(long)getpid()); if(n<0||(size_t)n>=sizeof(tmp))return -1; FILE *f=fopen(tmp,"w"); if(!f)return -1;
     for(size_t i=0;i<service_count;i++)fprintf(f,"{\"id\":\"%s\",\"enabled\":%s,\"pid\":%ld,\"failures\":%d}\n",services[i].id,services[i].enabled?"true":"false",(long)services[i].pid,services[i].failures);
     fflush(f); fsync(fileno(f)); fclose(f); if(rename(tmp,path)<0){unlink(tmp);return -1;} return 0;
 }
