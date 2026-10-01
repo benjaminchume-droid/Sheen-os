@@ -167,3 +167,5 @@ See:
 - Stage 8.8 — Android TV behavior foundation: complete
 
 - Stage 8.9 — APK package manager foundation: complete
+
+- Stage 8.10 — Android compatibility capabilities: complete
