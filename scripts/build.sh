@@ -55,7 +55,7 @@ chmod 0755 "$INITRAMFS/root/bin/busybox"
 for app in sh mount umount cat echo uname basename; do
     ln -s /bin/busybox "$INITRAMFS/root/bin/$app"
 done
-cp boot/initramfs/init "$INITRAMFS/root/init"
+gcc -Os -static -s "$ROOT/system/init/pid1.c" -o "$INITRAMFS/root/init"
 chmod 0755 "$INITRAMFS/root/init"
 printf '%s\n' /dev /dev/pts /proc /sys /run /tmp /bin /sbin /usr/bin /usr/sbin /etc > "$INITRAMFS/root/etc/initramfs.dirs"
 
