@@ -36,7 +36,7 @@ tar -xJf "$archive" -C "$BUILD/src"
 
 cd "$src"
 make mrproper
-make defconfig
+cp "$ROOT/$SHEEN_KERNEL_DEFCONFIG" .config
 cat "$ROOT/$SHEEN_KERNEL_CONFIG_FRAGMENT" >> .config
 make olddefconfig
 make -j"$(getconf _NPROCESSORS_ONLN)" bzImage
