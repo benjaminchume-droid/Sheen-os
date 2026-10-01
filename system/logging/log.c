@@ -2,6 +2,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -21,4 +22,4 @@ int sheen_log_write_path(const char *path,sheen_log_level level,const char *comp
     if(n<0||(size_t)n>=sizeof(line)){close(fd);return EOVERFLOW;}
     ssize_t w=write(fd,line,(size_t)n);int rc=(w==n)?0:(w<0?errno:EIO);close(fd);return rc;
 }
-int sheen_log_write_default(sheen_log_level level,const char *component,const char *message){return sheen_log_write_path("/run/sheen/logs/system.jsonl",level,component,message);}
+int sheen_log_write_default(sheen_log_level level,const char *component,const char *message){const char *path=getenv("SHEEN_LOG_PATH");if(!path||!*path)path="/run/sheen/logs/system.jsonl";return sheen_log_write_path(path,level,component,message);}
