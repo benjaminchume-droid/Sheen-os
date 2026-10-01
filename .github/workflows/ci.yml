@@ -364,6 +364,12 @@ jobs:
       - name: Test Android APK package manager
         run: sh ./tools/test-android-package.sh
 
+      - name: Validate Android capabilities contract
+        run: sh ./tools/validate-android-capabilities.sh
+
+      - name: Test Android capability matrix
+        run: sh ./tools/test-android-capabilities.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
