@@ -165,3 +165,5 @@ See:
 - Stage 8.7 — Android permission bridge foundation: complete
 
 - Stage 8.8 — Android TV behavior foundation: complete
+
+- Stage 8.9 — APK package manager foundation: complete
