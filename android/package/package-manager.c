@@ -117,22 +117,35 @@ typedef struct {
     uint32_t flags;
 } axml_ctx;
 
+static size_t axml_len(const uint8_t *p,uint32_t *value){
+    if(p[0]&0x80U){*value=((uint32_t)(p[0]&0x7fU)<<8)|p[1];return 2;}
+    *value=p[0];return 1;
+}
 static int pool_string(const axml_ctx *ctx,uint32_t idx,char *out,size_t cap){
-    if(idx>=ctx->string_count||!out||cap<1)return EINVAL;
-    uint32_t rel=rd32(ctx->data+ctx->strings-ctx->data-4*ctx->string_count+4*idx);
+    if(!ctx||!out||cap<1||idx>=ctx->string_count)return EINVAL;
+    const uint8_t *offsets=ctx->strings;
+    uint32_t rel=rd32(offsets+4U*idx);
+    if((uint64_t)ctx->strings_start+rel>=ctx->size)return EPROTO;
     const uint8_t *p=ctx->data+ctx->strings_start+rel;
-    if(ctx->flags&1){
-        uint8_t len=p[0]; size_t off=1;
-        if(len&0x80){if(off>=ctx->size)return EPROTO;len=(uint8_t)(((len&0x7f)<<8)|p[off++]);}
-        size_t chars=len;if(chars>=cap)chars=cap-1;
-        for(size_t i=0;i<chars;i++)out[i]=(char)p[off+2*i]<128?(char)p[off+2*i]:'?';
-        out[chars]=0;return 0;
+    uint32_t utf16_len=0;
+    size_t off=axml_len(p,&utf16_len);
+    if(ctx->flags&0x100U){
+        uint32_t utf8_len=0;
+        off+=axml_len(p+off,&utf8_len);
+        if((uint64_t)(ctx->strings_start+rel+off+utf8_len)>ctx->size)return EPROTO;
+        if(utf8_len>=cap)utf8_len=(uint32_t)cap-1;
+        memcpy(out,p+off,utf8_len);
+        out[utf8_len]=0;
+        return 0;
     }
-    uint16_t ulen=rd16(p);size_t off=2;
-    if(ulen&0x8000){if(off+2>ctx->size)return EPROTO;ulen=(uint16_t)(((ulen&0x7fff)<<16)|rd16(p+off));off+=2;}
-    size_t chars=ulen;if(chars>=cap)chars=cap-1;
-    for(size_t i=0;i<chars;i++)out[i]=(char)rd16(p+off+2*i);
-    out[chars]=0;return 0;
+    size_t chars=utf16_len;
+    if(chars>=cap)chars=cap-1;
+    for(size_t i=0;i<chars;i++){
+        uint16_t u=rd16(p+off+2*i);
+        out[i]=(u<128U)?(char)u:'?';
+    }
+    out[chars]=0;
+    return 0;
 }
 
 static int axml_find_package(const uint8_t *buf,size_t len,char *package,size_t package_cap,
