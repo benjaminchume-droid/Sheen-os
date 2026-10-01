@@ -18,7 +18,7 @@ mkfs.ext4 -F -L SHEENROOT "$IMAGE" >/dev/null
 cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
-mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/etc" "$MNT/usr/libexec" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/etc/sheen/services" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
@@ -28,6 +28,9 @@ gcc -Os -static -s "$ROOT/system/init/pid1.c" -o "$MNT/sbin/init"
 gcc -std=c11 -O2 -static -s -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/discovery/device-discovery.c" -o "$MNT/usr/sbin/sheen-hw-discover"
 gcc -std=c11 -O2 -static -s "$ROOT/system/hardware/device-manager.c" -o "$MNT/usr/libexec/sheen-device-manager"
 chmod 0755 "$MNT/usr/sbin/sheen-hw-discover"
+gcc -std=c11 -O2 -static -s "$ROOT/system/services/service-manager.c" -o "$MNT/usr/libexec/sheen-service-manager"
+chmod 0755 "$MNT/usr/libexec/sheen-service-manager"
+cp "$ROOT/configs/services/device-manager.conf" "$MNT/etc/sheen/services/device-manager.conf"
 chmod 0755 "$MNT/sbin/init"
 cat > "$MNT/etc/os-release" <<EOF
 NAME="Sheen OS"
