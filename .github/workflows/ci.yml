@@ -97,6 +97,12 @@ jobs:
       - name: Test audio device probe
         run: sh ./tools/test-audio.sh
 
+      - name: Validate input engine contract
+        run: sh ./tools/validate-input.sh
+
+      - name: Test input engine
+        run: sh ./tools/test-input.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
