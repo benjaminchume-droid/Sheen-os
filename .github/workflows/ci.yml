@@ -106,6 +106,12 @@ jobs:
       - name: Validate TV input contract
         run: sh ./tools/validate-tv-input.sh
 
+      - name: Validate container engine contract
+        run: sh ./tools/validate-container.sh
+
+      - name: Test container engine
+        run: sh ./tools/test-container.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
