@@ -75,8 +75,6 @@ static void scan_class(const char *name) {
 
 int main(void) {
     if(access("/sys/class",R_OK|X_OK)!=0) { fprintf(stderr,"sheen-hw-discover: /sys/class unavailable: %s\\n",strerror(errno)); return 2; }
-    printf("{\\\"schema\\\":\\\"sheen.device-list.v1\\\",\\\"source\\\":\\\"linux-sysfs\\\",\\\"devices\\\":[\\n");
-    int first=1;
     for(size_t i=0;class_names[i];++i) {
         char root[PATH_MAX]; snprintf(root,sizeof(root),"/sys/class/%s",class_names[i]);
         DIR *d=opendir(root); if(!d) continue;
@@ -89,6 +87,5 @@ int main(void) {
         }
         closedir(d);
     }
-    printf("]}\\n");
     return 0;
 }
