@@ -19,9 +19,15 @@ format = "gpt"
 size_mb = 512
 
 [image.esp]
+size_mb = 128
 filesystem = "fat32"
 label = "SHEEN"
 type_guid = "ef00"
+
+[image.root]
+filesystem = "ext4"
+label = "SHEENROOT"
+type_guid = "8300"
 
 [boot]
 loader = "grub"
