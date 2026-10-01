@@ -28,40 +28,6 @@ static int read_first_line(const char *path, char *buf, size_t n) {
     return 0;
 }
 
-static void emit_device(const char *class_name, const char *name) {
-    char devpath[PATH_MAX], uevent[PATH_MAX], subsystem[PATH_MAX], vendor[PATH_MAX], model[PATH_MAX], driver[PATH_MAX];
-    char link[PATH_MAX];
-    snprintf(devpath,sizeof(devpath),"/sys/class/%s/%s",class_name,name);
-    snprintf(uevent,sizeof(uevent),"%s/uevent",devpath);
-    snprintf(subsystem,sizeof(subsystem),"%s/subsystem",devpath);
-    snprintf(vendor,sizeof(vendor),"%s/device/vendor",devpath);
-    snprintf(model,sizeof(model),"%s/device/model",devpath);
-    snprintf(driver,sizeof(driver),"%s/device/driver",devpath);
-    char real[PATH_MAX]={0}, value[256]={0};
-    ssize_t n=readlink(devpath,real,sizeof(real)-1);
-    if(n>0){real[n]=0;}
-    char subsys_real[PATH_MAX]={0}, drv_real[PATH_MAX]={0};
-    n=readlink(subsystem,subsys_real,sizeof(subsys_real)-1); if(n>0) subsys_real[n]=0;
-    n=readlink(driver,drv_real,sizeof(drv_real)-1); if(n>0) drv_real[n]=0;
-    const char *id = real[0] ? real : devpath;
-    printf("{\\\"device_id\\\":"); json_escape(id);
-    printf(",\\\"class\\\":"); json_escape(class_name);
-    printf(",\\\"name\\\":"); json_escape(name);
-    printf(",\\\"state\\\":\\\"present\\\"");
-    printf(",\\\"properties\\\":{");
-    int comma=0;
-    if (read_first_line(vendor,value,sizeof(value))==0) { printf("%s\\\"vendor\\\":",comma?",":""); json_escape(value); comma=1; }
-    if (read_first_line(model,value,sizeof(value))==0) { printf("%s\\\"model\\\":",comma?",":""); json_escape(value); comma=1; }
-    if (read_first_line(uevent,value,sizeof(value))==0) { printf("%s\\\"uevent\\\":",comma?",":""); json_escape(value); comma=1; }
-    if (real[0]) { printf("%s\\\"sysfs_path\\\":",comma?",":""); json_escape(real); comma=1; }
-    if (subsys_real[0]) { printf("%s\\\"subsystem\\\":",comma?",":""); json_escape(subsys_real); comma=1; }
-    if (drv_real[0]) { printf("%s\\\"driver\\\":",comma?",":""); json_escape(drv_real); comma=1; }
-    snprintf(link,sizeof(link),"%s/device",devpath);
-    n=readlink(link,real,sizeof(real)-1);
-    if(n>0){real[n]=0; printf("%s\\\"device_path\\\":",comma?",":""); json_escape(real);}
-    printf("}}\\n");
-}
-
 static void emit_path_device(const char *group, const char *name, const char *path) {
     char real[PATH_MAX]={0}, vendor[256]={0}, device[256]={0}, product[256]={0}, manufacturer[256]={0}, class_code[256]={0};
     ssize_t n=readlink(path,real,sizeof(real)-1); if(n>0) real[n]=0;
@@ -84,7 +50,7 @@ static void emit_path_device(const char *group, const char *name, const char *pa
     if(manufacturer[0]){printf("%s\"manufacturer\":",comma?",":"");json_escape(manufacturer);comma=1;}
     if(class_code[0]){printf("%s\"class_code\":",comma?",":"");json_escape(class_code);comma=1;}
     printf("%s\"sysfs_path\":",comma?",":"");json_escape(path);
-    printf("}}\\n");
+    printf("}}\n");
 }
 
 static void scan_tree(const char *root, const char *group, int depth) {
@@ -95,7 +61,7 @@ static void scan_tree(const char *root, const char *group, int depth) {
         char path[PATH_MAX];
         snprintf(path,sizeof(path),"%s/%s",root,e->d_name);
         struct stat st;
-        if(lstat(path,&st)!=0) continue;
+        if(stat(path,&st)!=0) continue;
         if(S_ISDIR(st.st_mode)) {
             emit_path_device(group,e->d_name,path);
             if(depth>0) scan_tree(path,group,depth-1);
