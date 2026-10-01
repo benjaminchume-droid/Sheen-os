@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"sheen://api/v1/session-manager",
+  "title":"SessionManager v1",
+  "type":"object",
+  "operations":{
+    "create":{"request":{"type":"object","required":["owner"],"properties":{"owner":{"type":"string"},"kind":{"type":"string"},"resources":{"type":"array","items":{"type":"string"}}},"additionalProperties":false},"response":{"$ref":"#/$defs/session"}},
+    "get":{"request":{"type":"object","required":["session_id"],"properties":{"session_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/session"}},
+    "release":{"request":{"type":"object","required":["session_id"],"properties":{"session_id":{"type":"string"}},"additionalProperties":false},"response":{"type":"object","required":["released"],"properties":{"released":{"type":"boolean"}}}}
+  },
+  "events":["session.created","session.attached","session.detached","session.state_changed","session.released"],
+  "$defs":{"session":{"type":"object","required":["session_id","owner","state","resources"],"properties":{"session_id":{"type":"string"},"owner":{"type":"string"},"kind":{"type":"string"},"state":{"type":"string","enum":["created","starting","active","paused","degraded","stopping","released"]},"resources":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}}
+}
