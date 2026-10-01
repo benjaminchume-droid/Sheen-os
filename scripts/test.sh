@@ -78,3 +78,7 @@ sh "$ROOT/tools/test-channel-db.sh"
 sh "$ROOT/tools/test-live.sh"
 
 sh "$ROOT/tools/test-epg.sh"
+
+sh "$ROOT/tools/test-timeshift.sh"
+
+sh "$ROOT/tools/test-dvr.sh"
