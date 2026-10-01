@@ -196,6 +196,12 @@ jobs:
       - name: Test channel database
         run: sh ./tools/test-channel-db.sh
 
+      - name: Validate EPG contract
+        run: sh ./tools/validate-epg.sh
+
+      - name: Test EPG parser
+        run: sh ./tools/test-epg.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
