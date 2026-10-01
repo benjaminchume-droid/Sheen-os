@@ -99,6 +99,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/vision/frame/include" -I"$ROOT/v
 ar rcs "$MNT/usr/lib/libsheen-vision-filters.a" "$BUILD/vision/filters/denoise.o" "$BUILD/vision/filters/deblock.o" "$BUILD/vision/filters/sharpen.o"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/vision/frame/include" -I"$ROOT/vision/hdr/include" -c "$ROOT/vision/hdr/pq-p010.c" -o "$BUILD/vision/hdr.o"
 ar rcs "$MNT/usr/lib/libsheen-hdr.a" "$BUILD/vision/hdr.o"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/vision/frame-process/include" -c "$ROOT/vision/frame-process/cadence.c" -o "$BUILD/vision/frame-process.o"
+ar rcs "$MNT/usr/lib/libsheen-frame-process.a" "$BUILD/vision/frame-process.o"
 chmod 0755 "$MNT/usr/sbin/sheen-evdev-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-alsa-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/system/display/display-manager.c" -o "$MNT/usr/libexec/sheen-display-manager"
