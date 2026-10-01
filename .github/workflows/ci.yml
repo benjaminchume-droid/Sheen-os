@@ -340,6 +340,12 @@ jobs:
       - name: Test Android audio bridge
         run: sh ./tools/test-android-audio.sh
 
+      - name: Validate Android storage contract
+        run: sh ./tools/validate-android-storage.sh
+
+      - name: Test Android storage bridge
+        run: sh ./tools/test-android-storage.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
