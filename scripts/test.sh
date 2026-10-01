@@ -92,3 +92,5 @@ sh "$ROOT/tools/test-media-cast.sh"
 sh "$ROOT/tools/test-mirror.sh"
 
 sh "$ROOT/tools/test-wfd.sh"
+
+sh "$ROOT/tools/test-webrtc.sh"
