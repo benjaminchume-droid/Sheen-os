@@ -60,3 +60,5 @@ sh "$ROOT/tools/test-hw-decoder.sh"
 sh "$ROOT/tools/test-audio-pipeline.sh"
 
 sh "$ROOT/tools/test-subtitles.sh"
+
+sh "$ROOT/tools/test-streaming.sh"
