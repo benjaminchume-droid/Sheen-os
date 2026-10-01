@@ -48,6 +48,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/demux/include" 
 chmod 0755 "$MNT/usr/sbin/sheen-broadcast-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/tuner/include" -I"$ROOT/tv/scanning/include" "$ROOT/tv/scanning/scan.c" "$ROOT/tv/scanning/scan-plan.c" "$ROOT/tv/tuner/dvb-frontend.c" -o "$MNT/usr/sbin/sheen-tv-scan-plan"
 chmod 0755 "$MNT/usr/sbin/sheen-tv-scan-plan"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/channels/include" "$ROOT/tv/channels/channel-db.c" "$ROOT/tv/channels/channel-db-cli.c" -o "$MNT/usr/sbin/sheen-channel-db" -lsqlite3 -ldl -lpthread -lm
+chmod 0755 "$MNT/usr/sbin/sheen-channel-db"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/container.c" "$ROOT/media/demux/container-probe.c" -o "$MNT/usr/sbin/sheen-container-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-container-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-codec-probe.c" -o "$MNT/usr/sbin/sheen-v4l2-codec-probe"
