@@ -75,7 +75,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 udevadm settle 2>/dev/null || true
-part="\${loop}p1"
+part="${loop}p1"
 mkfs.vfat -F 32 -n SHEEN "$part" >/dev/null
 
 mkdir -p "$BUILD/mnt/efi"
@@ -90,9 +90,9 @@ mkdir -p "$BUILD/mnt/efi/boot/grub"
 cp "$ROOT/boot/bootloader/grub/grub.cfg" "$BUILD/mnt/efi/boot/grub/grub.cfg"
 
 cat > "$BUILD/BUILD-METADATA" <<EOF
- target=$TARGET
- kernel=$SHEEN_KERNEL_VERSION
- image=$IMAGE
+target=$TARGET
+kernel=$SHEEN_KERNEL_VERSION
+image=$IMAGE
 EOF
 sync
 echo "Built: $IMAGE"
