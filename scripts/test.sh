@@ -124,3 +124,5 @@ sh "$ROOT/tools/test-android-graphics.sh"
 sh "$ROOT/tools/test-android-input.sh"
 
 sh "$ROOT/tools/test-android-audio.sh"
+
+sh "$ROOT/tools/test-android-storage.sh"
