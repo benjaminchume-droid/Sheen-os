@@ -120,3 +120,5 @@ sh "$ROOT/tools/test-android-runtime.sh"
 sh "$ROOT/tools/test-android-binder.sh"
 
 sh "$ROOT/tools/test-android-graphics.sh"
+
+sh "$ROOT/tools/test-android-input.sh"
