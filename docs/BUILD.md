@@ -7,9 +7,9 @@ The first supported target is an x86-64 UEFI machine booting from a USB image.
 On Debian/Ubuntu:
 
 ```sh
-./scripts/install-deps-debian.sh
-sudo ./scripts/build.sh
-./scripts/test.sh
+sh ./scripts/install-deps-debian.sh
+sudo sh ./scripts/build.sh
+sh ./scripts/test.sh
 ```
 
 The resulting image is `out/sheen-x86_64-uefi.img`.
