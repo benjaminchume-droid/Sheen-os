@@ -67,6 +67,12 @@ jobs:
       - name: Test configuration system
         run: sh ./tools/test-config.sh
 
+      - name: Validate logging contract
+        run: sh ./tools/validate-logging.sh
+
+      - name: Test logging and diagnostics
+        run: sh ./tools/test-logging.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
