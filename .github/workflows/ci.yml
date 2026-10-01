@@ -79,6 +79,12 @@ jobs:
       - name: Test DRM KMS probe
         run: sh ./tools/test-drm.sh
 
+      - name: Validate GPU detection contract
+        run: sh ./tools/validate-gpu.sh
+
+      - name: Test GPU detection
+        run: sh ./tools/test-gpu.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
