@@ -12,7 +12,18 @@ sgdisk --verify "$IMAGE" >/dev/null
 offset="${SHEEN_ESP_OFFSET_BYTES:-1048576}"
 mdir -i "$IMAGE@@$offset" ::/EFI/BOOT/ >/dev/null
 mdir -i "$IMAGE@@$offset" ::/boot/grub/ >/dev/null
-for path in ::/EFI/BOOT/BOOTX64.EFI ::/boot/grub/grub.cfg ::/sheen/kernel ::/sheen/initramfs.img; do
-    mdir -i "$IMAGE@@$offset" "$path" >/dev/null || { echo "UEFI artifact missing: $path" >&2; exit 1; }
+tmp="$(mktemp -d)"
+cleanup() { rm -rf "$tmp"; }
+trap cleanup EXIT INT TERM
+for path in EFI/BOOT/BOOTX64.EFI boot/grub/grub.cfg sheen/kernel sheen/initramfs.img; do
+    mcopy -i "$IMAGE@@$offset" "::/$path" "$tmp/$(basename "$path")" >/dev/null 2>&1 || { echo "UEFI artifact missing: $path" >&2; exit 1; }
 done
+file "$tmp/BOOTX64.EFI"
+file "$tmp/kernel"
+file "$tmp/initramfs.img"
+grep -q '^menuentry "Sheen OS"' "$tmp/grub.cfg"
+grep -q '^    linux /sheen/kernel' "$tmp/grub.cfg"
+grep -q '^    initrd /sheen/initramfs.img' "$tmp/grub.cfg"
+[ -s "$tmp/kernel" ]
+[ -s "$tmp/initramfs.img" ]
 echo "UEFI boot artifact checks passed: $TARGET"
