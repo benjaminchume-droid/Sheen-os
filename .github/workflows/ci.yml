@@ -376,6 +376,12 @@ jobs:
       - name: Test public Sheen API
         run: sh ./tools/test-sheen-api.sh
 
+      - name: Validate application lifecycle contract
+        run: sh ./tools/validate-app-lifecycle.sh
+
+      - name: Test application lifecycle
+        run: sh ./tools/test-app-lifecycle.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
