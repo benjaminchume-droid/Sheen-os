@@ -106,3 +106,5 @@ sh "$ROOT/tools/test-vision-accel.sh"
 sh "$ROOT/tools/test-scaler.sh"
 
 sh "$ROOT/tools/test-superres.sh"
+
+sh "$ROOT/tools/test-vision-filters.sh"
