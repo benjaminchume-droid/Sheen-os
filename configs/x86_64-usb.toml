@@ -1,1 +1,12 @@
-[target]\narch="x86_64"\nboot="uefi"\nmode="usb"\n
+[target]
+arch = "x86_64"
+boot = "uefi"
+mode = "usb"
+
+[kernel]
+version = "6.12.51"
+
+[image]
+filesystem = "gpt"
+esp = "fat32"
+size_mb = 512
