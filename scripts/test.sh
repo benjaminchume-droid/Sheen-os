@@ -36,3 +36,5 @@ sh "$ROOT/tools/test-config.sh"
 sh "$ROOT/tools/test-logging.sh"
 
 sh "$ROOT/tools/test-drm.sh"
+
+sh "$ROOT/tools/test-gpu.sh"
