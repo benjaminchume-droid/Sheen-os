@@ -54,6 +54,6 @@ int sheen_android_binder_open(const sheen_android_binder_info *info) {
 int sheen_android_binder_mountfs(const char *mountpoint) {
     if(!mountpoint||!mountpoint[0])return EINVAL;
     if(mkdir(mountpoint,0755)<0&&errno!=EEXIST)return errno;
-    if(mount("binder","", "binder", MS_NOSUID|MS_NODEV, NULL)<0)return errno;
+    if(mount("binder",mountpoint,"binder",MS_NOSUID|MS_NODEV,NULL)<0)return errno;
     return 0;
 }
