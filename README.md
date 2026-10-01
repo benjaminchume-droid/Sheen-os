@@ -36,6 +36,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 1.6 — USB image foundation: complete
 - Stage 2.1 — device discovery: complete
 - Stage 2.2 — hardware abstraction layer: complete
+- Stage 2.3 — device manager: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -53,4 +54,5 @@ See:
 - docs/FIRST-BOOT-1.7.md
 - docs/DEVICE-DISCOVERY-2.1.md
 - hardware/hal/README.md
+- docs/DEVICE-MANAGER-2.3.md
 - docs/ROADMAP.md
