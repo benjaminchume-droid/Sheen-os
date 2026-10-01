@@ -21,3 +21,8 @@ Rules:
 
 Stage 0.2 does not implement cross-compilation, package management or production
 signing; those belong to later stages.
+
+## Target contract
+
+Stage 0.3 target manifests are canonical inputs to the build system. Build scripts must
+select a target by ID and validate its manifest before producing artifacts.
