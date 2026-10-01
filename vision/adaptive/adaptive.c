@@ -14,7 +14,7 @@ int sheen_adaptive_add_stage(sheen_adaptive_context *c,const sheen_adaptive_stag
     return 0;
 }
 
-int sheen_adaptive_plan(const sheen_adaptive_context *c,sheen_adaptive_plan *out) {
+int sheen_adaptive_build_plan(const sheen_adaptive_context *c,sheen_adaptive_plan *out) {
     if(!c||!out)return EINVAL;
     memset(out,0,sizeof(*out));
 
