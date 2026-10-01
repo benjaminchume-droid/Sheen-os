@@ -102,6 +102,7 @@ See:
 - docs/LIVE-5.5.md
 - docs/EPG-5.6.md
 - docs/TIMESHIFT-5.7.md
+- docs/DVR-5.8.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -110,3 +111,4 @@ See:
 - Stage 5.5 — live playback foundation: complete
 - Stage 5.6 — EPG/service information: complete
 - Stage 5.7 — timeshift: complete
+- Stage 5.8 — DVR scheduler: complete
