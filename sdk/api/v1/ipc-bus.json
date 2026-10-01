@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"sheen://api/v1/ipc-bus",
+  "title":"IpcBus v1",
+  "type":"object",
+  "operations":{
+    "discover":{"request":{"type":"object","properties":{"service":{"type":"string"}},"additionalProperties":false},"response":{"type":"array","items":{"$ref":"#/$defs/service_endpoint"}}},
+    "negotiate":{"request":{"type":"object","required":["service","version"],"properties":{"service":{"type":"string"},"version":{"type":"string"}},"additionalProperties":false},"response":{"type":"object","required":["accepted_version"],"properties":{"accepted_version":{"type":"string"},"capabilities":{"type":"array","items":{"type":"string"}}}}},
+    "request":{"request":{"type":"object","required":["service","operation","request_id"],"properties":{"service":{"type":"string"},"operation":{"type":"string"},"request_id":{"type":"string"},"payload":{"type":"object","additionalProperties":true},"deadline_ms":{"type":"integer","minimum":1}},"additionalProperties":false},"response":{"type":"object","required":["request_id","status"],"properties":{"request_id":{"type":"string"},"status":{"type":"string","enum":["ok","error","cancelled","deadline_exceeded"]},"payload":{"type":"object","additionalProperties":true},"error":{"type":"object"}}}}
+  },
+  "events":["ipc.event","ipc.service_added","ipc.service_removed"],
+  "$defs":{"service_endpoint":{"type":"object","required":["service","versions"],"properties":{"service":{"type":"string"},"versions":{"type":"array","items":{"type":"string"}},"capabilities":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}}
+}
