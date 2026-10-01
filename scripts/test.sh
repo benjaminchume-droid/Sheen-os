@@ -7,6 +7,7 @@ IMAGE="$BUILD/sheen-$TARGET.img"
 
 "$ROOT/tools/test-kernel.sh" "$TARGET"
 "$ROOT/tools/test-uefi.sh" "$TARGET"
+"$ROOT/tools/test-initramfs.sh" "$TARGET"
 [ -s "$BUILD/kernel/bzImage" ]
 [ -s "$BUILD/kernel/.config" ]
 [ -s "$BUILD/kernel/kernel.release" ]
