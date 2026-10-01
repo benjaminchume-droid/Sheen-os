@@ -49,6 +49,12 @@ jobs:
       - name: Test device manager
         run: sh ./tools/test-device-manager.sh
 
+      - name: Validate service manager contract
+        run: sh ./tools/validate-service-manager.sh
+
+      - name: Test service manager
+        run: sh ./tools/test-service-manager.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
