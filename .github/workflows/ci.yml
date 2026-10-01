@@ -280,6 +280,12 @@ jobs:
       - name: Test scaler
         run: sh ./tools/test-scaler.sh
 
+      - name: Validate super-resolution contract
+        run: sh ./tools/validate-superres.sh
+
+      - name: Test super-resolution
+        run: sh ./tools/test-superres.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
