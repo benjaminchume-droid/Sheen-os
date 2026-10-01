@@ -130,6 +130,12 @@ jobs:
       - name: Test decoder pipeline
         run: sh ./tools/test-decoder.sh
 
+      - name: Validate hardware decoder contract
+        run: sh ./tools/validate-hw-decoder.sh
+
+      - name: Test hardware decoder selector
+        run: sh ./tools/test-hw-decoder.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
