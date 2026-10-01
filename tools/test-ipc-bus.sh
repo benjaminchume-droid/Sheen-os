@@ -4,7 +4,7 @@ ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 command -v gcc >/dev/null 2>&1 || { echo "missing host tool: gcc" >&2; exit 1; }
 command -v python3 >/dev/null 2>&1 || { echo "missing host tool: python3" >&2; exit 1; }
 tmp="$(mktemp -d)"
-cleanup(){ if [ -n "${pid:-}" ]; then kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true; fi; rm -rf "$tmp"; }
+cleanup() {  if [ -n "${pid:-}" ]; then kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true; fi; rm -rf "$tmp"; }
 trap cleanup EXIT INT TERM
 gcc -std=c11 -O2 -Wall -Wextra -Werror "$ROOT/system/ipc/ipc-bus.c" -o "$tmp/sheen-ipc-bus"
 "$tmp/sheen-ipc-bus" --socket "$tmp/bus.sock" & pid=$!
