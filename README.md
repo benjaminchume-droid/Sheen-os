@@ -112,6 +112,7 @@ See:
 - docs/CAST-DEVICES-6.7.md
 - docs/VISION-FRAME-7.1.md
 - docs/SCALER-7.3.md
+- docs/SUPERRES-7.4.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -137,3 +138,4 @@ See:
 
 - Stage 7.2 — Vision hardware acceleration inventory: complete
 - Stage 7.3 — Vision scaling: complete
+- Stage 7.4 — classical super-resolution: complete
