@@ -7,7 +7,7 @@ int sheen_deblock_rgba(sheen_vision_frame *f,uint32_t block,uint8_t strength){
     if(f->format!=SHEEN_PIXEL_RGBA8888&&f->format!=SHEEN_PIXEL_BGRA8888)return 95;
     if(sheen_vision_frame_validate(f))return 22;
     if(!strength)return 0;
-    uint8_t *tmp=malloc((size_t)f->width*f->height*4);if(!tmp)return 12;
+    uint8_t *tmp=malloc((size_t)f->planes[0].stride*f->planes[0].height);if(!tmp)return 12;
     memcpy(tmp,f->planes[0].data,(size_t)f->width*f->height*4);
     for(uint32_t y=0;y<f->height;y++)for(uint32_t x=0;x<f->width;x++){
         if(x==0||y==0)continue;
