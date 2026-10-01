@@ -160,6 +160,12 @@ jobs:
       - name: Test media library
         run: sh ./tools/test-media-library.sh
 
+      - name: Validate recording engine contract
+        run: sh ./tools/validate-recording.sh
+
+      - name: Test recording engine
+        run: sh ./tools/test-recording.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
