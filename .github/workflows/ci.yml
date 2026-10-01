@@ -40,6 +40,9 @@ jobs:
       - name: Validate USB image contract
         run: sh ./tools/validate-usb.sh x86_64-uefi-usb
 
+      - name: Test hardware discovery
+        run: sh ./tools/test-hardware-discovery.sh
+
   stage1:
     needs: foundation
     runs-on: ubuntu-latest
