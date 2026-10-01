@@ -250,6 +250,12 @@ jobs:
       - name: Test WebRTC SDP and ICE
         run: sh ./tools/test-webrtc.sh
 
+      - name: Validate cast session contract
+        run: sh ./tools/validate-cast-session.sh
+
+      - name: Test cast session manager
+        run: sh ./tools/test-cast-session.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
