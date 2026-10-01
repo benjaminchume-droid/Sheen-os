@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sheen://api/v1/common",
+  "title": "Sheen API Common Types",
+  "type": "object",
+  "definitions": {
+    "Id": {"type":"string","minLength":1,"maxLength":256},
+    "Timestamp": {"type":"string","format":"date-time"},
+    "Version": {"type":"string","pattern":"^[0-9]+\\.[0-9]+$"},
+    "Capability": {"type":"string","pattern":"^[a-z0-9][a-z0-9._-]*$"},
+    "Error": {
+      "type":"object","required":["code","message"],
+      "properties":{
+        "code":{"type":"string","pattern":"^[A-Z0-9_]+$"},
+        "message":{"type":"string","minLength":1},
+        "details":{"type":"object","additionalProperties":true},
+        "retryable":{"type":"boolean"}
+      },
+      "additionalProperties":false
+    },
+    "Health": {
+      "type":"string",
+      "enum":["discovering","initializing","ready","active","degraded","failed","recovering","stopped"]
+    },
+    "EventEnvelope": {
+      "type":"object","required":["event","version","timestamp"],
+      "properties":{
+        "event":{"type":"string"},
+        "version":{"$ref":"#/$defs/Version"},
+        "timestamp":{"$ref":"#/$defs/Timestamp"},
+        "resource_id":{"$ref":"#/$defs/Id"},
+        "data":{"type":"object","additionalProperties":true}
+      },
+      "additionalProperties":false
+    }
+  },
+  "$defs": {
+    "Version":{"type":"string","pattern":"^[0-9]+\\.[0-9]+$"},
+    "Timestamp":{"type":"string","format":"date-time"},
+    "Id":{"type":"string","minLength":1,"maxLength":256}
+  }
+}
