@@ -45,4 +45,5 @@ int sheen_vision_pipeline_add(sheen_vision_pipeline *pipeline,const sheen_vision
 int sheen_vision_pipeline_process(sheen_vision_pipeline *pipeline,sheen_vision_frame *frame);
 void sheen_vision_pipeline_close(sheen_vision_pipeline *pipeline);
 int sheen_vision_frame_validate(const sheen_vision_frame *frame);
+void sheen_vision_frame_release(sheen_vision_frame *frame);
 #endif
