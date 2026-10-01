@@ -35,8 +35,8 @@ x=json.load(open(sys.argv[1],encoding="utf-8"))
 assert x["event_count"]==1
 e=x["events"][0]
 assert e["service_id"]==7 and e["event_id"]==7
-assert e["start_ms"]==1780274096000
-assert e["end_ms"]==1780279496000
+assert e["start_ms"]==1790858096000
+assert e["end_ms"]==1790863496000
 assert e["title"]=="News" and e["description"]=="Top stories"
 print("validated DVB EIT: service=7 event=7 title=News")
 PY
