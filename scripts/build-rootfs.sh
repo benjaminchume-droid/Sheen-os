@@ -49,6 +49,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-decod
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-decoder-session"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/subtitles/include" "$ROOT/media/subtitles/subtitle-parser.c" "$ROOT/media/subtitles/subtitle-probe.c" -o "$MNT/usr/sbin/sheen-subtitle-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-subtitle-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/streaming/include" "$ROOT/media/streaming/stream.c" "$ROOT/media/streaming/stream-probe.c" -o "$MNT/usr/sbin/sheen-stream-probe"
+chmod 0755 "$MNT/usr/sbin/sheen-stream-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-codec-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/mpegts-demux.c" "$ROOT/media/demux/demux-probe.c" -o "$MNT/usr/sbin/sheen-mpegts-demux"
 chmod 0755 "$MNT/usr/sbin/sheen-mpegts-demux"
