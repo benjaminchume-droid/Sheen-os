@@ -208,6 +208,12 @@ jobs:
       - name: Test timeshift
         run: sh ./tools/test-timeshift.sh
 
+      - name: Validate DVR contract
+        run: sh ./tools/validate-dvr.sh
+
+      - name: Test DVR scheduler
+        run: sh ./tools/test-dvr.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
