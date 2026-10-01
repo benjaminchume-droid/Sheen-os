@@ -16,3 +16,8 @@ Phase 2.1 provides `hardware/discovery/device-discovery.c`, a Linux sysfs-driven
 ## Hardware abstraction layer
 
 `hardware/hal/` provides the reusable low-level interface for sysfs access, device identity, and normalized device state. Domain services consume this boundary instead of implementing their own Linux path handling.
+
+
+## DRM/KMS
+
+Phase 3.1 provides `hardware/graphics/drm-probe.c`, the Linux DRM/KMS discovery primitive used by later display management. It accesses DRM through the hardware boundary rather than application code.
