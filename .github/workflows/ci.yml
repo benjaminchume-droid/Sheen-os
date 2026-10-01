@@ -298,6 +298,12 @@ jobs:
       - name: Test HDR SDR processing
         run: sh ./tools/test-hdr.sh
 
+      - name: Validate frame processing contract
+        run: sh ./tools/validate-frame-process.sh
+
+      - name: Test frame processing
+        run: sh ./tools/test-frame-process.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
