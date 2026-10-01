@@ -370,6 +370,12 @@ jobs:
       - name: Test Android capability matrix
         run: sh ./tools/test-android-capabilities.sh
 
+      - name: Validate public Sheen API contract
+        run: sh ./tools/validate-sheen-api.sh
+
+      - name: Test public Sheen API
+        run: sh ./tools/test-sheen-api.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
