@@ -175,3 +175,5 @@ See:
 - Stage 9.2 — application lifecycle: complete
 
 - Stage 9.3 — application permissions: complete
+
+- Stage 9.4 — application sandboxing: complete
