@@ -253,8 +253,16 @@ int sheen_android_package_init(sheen_android_package_manager *m){
     const char *sql="PRAGMA journal_mode=WAL;CREATE TABLE IF NOT EXISTS packages(package_id TEXT PRIMARY KEY,version_code INTEGER NOT NULL,source_path TEXT NOT NULL,installed_path TEXT NOT NULL UNIQUE,size_bytes INTEGER NOT NULL,has_manifest INTEGER NOT NULL,has_dex INTEGER NOT NULL,has_tv_feature INTEGER NOT NULL);";
     return sqlite3_exec(m->db,sql,NULL,NULL,NULL)==SQLITE_OK?0:EIO;
 }
+static int valid_package_id(const char *id){
+    if(!id||!*id||strlen(id)>=256||id[0]=='/'||id[0]=='\\')return 0;
+    for(const char *p=id;*p;p++){
+        if(*p=='/'||*p=='\\'||*p==' '||*p=='\t'||*p=='\r'||*p=='\n')return 0;
+    }
+    return 1;
+}
 int sheen_android_package_install(sheen_android_package_manager *m,const char *apk,sheen_android_package_info *info){
     if(!m||!apk||!info)return EINVAL;int rc=apk_inspect_internal(apk,info);if(rc)return rc;
+    if(!valid_package_id(info->package_id))return EINVAL;
     char dir[4096],dst[4096];snprintf(dir,sizeof(dir),"%s/%s",m->root,info->package_id);if(mkdir_p(dir))return errno;snprintf(dst,sizeof(dst),"%s/base.apk",dir);
     rc=copy_atomic(apk,dst);if(rc)return rc;
     snprintf(info->installed_path,sizeof(info->installed_path),"%s",dst);
