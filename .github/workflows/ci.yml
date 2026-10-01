@@ -91,6 +91,12 @@ jobs:
       - name: Test display manager
         run: sh ./tools/test-display-manager.sh
 
+      - name: Validate audio contract
+        run: sh ./tools/validate-audio.sh
+
+      - name: Test audio device probe
+        run: sh ./tools/test-audio.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
