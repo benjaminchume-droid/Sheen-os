@@ -38,6 +38,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 2.2 — hardware abstraction layer: complete
 - Stage 2.3 — device manager: complete
 - Stage 2.4 — service manager: complete
+- Stage 2.5 — IPC bus: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -57,4 +58,5 @@ See:
 - hardware/hal/README.md
 - docs/DEVICE-MANAGER-2.3.md
 - docs/SERVICE-MANAGER-2.4.md
+- docs/IPC-2.5.md
 - docs/ROADMAP.md
