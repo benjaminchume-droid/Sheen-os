@@ -37,6 +37,8 @@ gcc -std=c11 -O2 -static -s "$ROOT/system/diagnostics/diagnose.c" -o "$MNT/usr/s
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/hardware/graphics/drm-probe.c" -o "$MNT/usr/sbin/sheen-drm-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/graphics/gpu-probe.c" -o "$MNT/usr/sbin/sheen-gpu-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-gpu-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/audio/alsa-probe.c" -o "$MNT/usr/sbin/sheen-alsa-probe"
+chmod 0755 "$MNT/usr/sbin/sheen-alsa-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/system/display/display-manager.c" -o "$MNT/usr/libexec/sheen-display-manager"
 chmod 0755 "$MNT/usr/libexec/sheen-display-manager"
 cp "$ROOT/configs/services/display-manager.conf" "$MNT/etc/sheen/services/display-manager.conf"
