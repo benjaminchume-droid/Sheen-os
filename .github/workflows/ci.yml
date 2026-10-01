@@ -136,6 +136,12 @@ jobs:
       - name: Test hardware decoder selector
         run: sh ./tools/test-hw-decoder.sh
 
+      - name: Validate audio pipeline contract
+        run: sh ./tools/validate-audio-pipeline.sh
+
+      - name: Test audio pipeline
+        run: sh ./tools/test-audio-pipeline.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
