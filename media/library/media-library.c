@@ -2,7 +2,6 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <openssl/sha.h>
 #include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,8 +14,12 @@
 #include "sheen/container.h"
 struct sheen_media_library { sqlite3 *db; };
 
+static uint64_t fnv1a(const void *data,size_t n,uint64_t seed){const unsigned char *p=data;uint64_t h=seed;for(size_t i=0;i<n;i++){h^=p[i];h*=1099511628211ULL;}return h;}
 static void make_id(const char *source,uint64_t size,int64_t mtime,char out[65]){
-    SHA256_CTX c;SHA256_Init(&c);SHA256_Update(&c,source,strlen(source));SHA256_Update(&c,&size,sizeof(size));SHA256_Update(&c,&mtime,sizeof(mtime));unsigned char d[SHA256_DIGEST_LENGTH];SHA256_Final(d,&c);for(size_t i=0;i<sizeof(d);i++)snprintf(out+i*2,3,"%02x",d[i]);out[64]=0;
+    uint64_t a=1469598103934665603ULL,b=1099511628211ULL;
+    a=fnv1a(source,strlen(source),a);a=fnv1a(&size,sizeof(size),a);a=fnv1a(&mtime,sizeof(mtime),a);
+    b=fnv1a(source,strlen(source),b);b=fnv1a(&mtime,sizeof(mtime),b);b=fnv1a(&size,sizeof(size),b);
+    snprintf(out,65,"%016llx%016llx",(unsigned long long)a,(unsigned long long)b);
 }
 static int bind_item(sqlite3_stmt *s,const sheen_media_item *i){sqlite3_bind_text(s,1,i->id,-1,SQLITE_TRANSIENT);sqlite3_bind_text(s,2,i->source,-1,SQLITE_TRANSIENT);sqlite3_bind_text(s,3,i->container,-1,SQLITE_TRANSIENT);sqlite3_bind_int64(s,4,(sqlite3_int64)i->size_bytes);sqlite3_bind_int64(s,5,(sqlite3_int64)i->mtime_ns);return 0;}
 sheen_media_library *sheen_media_library_open(const char *path){if(!path)return NULL;sheen_media_library *l=calloc(1,sizeof(*l));if(!l)return NULL;if(sqlite3_open(path,&l->db)!=SQLITE_OK){sqlite3_close(l->db);free(l);return NULL;}return l;}
