@@ -22,6 +22,9 @@ jobs:
       - name: Validate target
         run: sh ./tools/validate-target.sh x86_64-uefi-usb
 
+      - name: Validate kernel contract
+        run: sh ./tools/test-kernel.sh x86_64-uefi-usb
+
   stage1:
     needs: foundation
     runs-on: ubuntu-latest
