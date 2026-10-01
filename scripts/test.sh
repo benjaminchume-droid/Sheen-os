@@ -116,3 +116,5 @@ sh "$ROOT/tools/test-frame-process.sh"
 sh "$ROOT/tools/test-adaptive.sh"
 
 sh "$ROOT/tools/test-android-runtime.sh"
+
+sh "$ROOT/tools/test-android-binder.sh"
