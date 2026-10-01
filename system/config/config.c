@@ -35,4 +35,4 @@ int sheen_config_save_atomic(const sheen_config *c,const char *path){
     const char *last="";for(size_t i=0;i<c->count;i++){entry const *e=&c->entries[i];if(strcmp(last,e->section)){fprintf(f,"[%s]\\n",e->section);last=e->section;}fprintf(f,"%s=%s\\n",e->key,e->value);}
     fflush(f);fsync(fileno(f));if(fclose(f)!=0){unlink(tmp);return errno;}if(rename(tmp,path)<0){int e=errno;unlink(tmp);return e;}return 0;
 }
-int sheen_config_dump(const sheen_config *c,int fd){if(!c)return EINVAL;const char *last="";char buf[1400];for(size_t i=0;i<c->count;i++){entry const *e=&c->entries[i];if(strcmp(last,e->section)){dprintf(fd,"[%s]\\n",e->section);last=e->section;}dprintf(fd,"%s=%s\\n",e->key,e->value);}return 0;}
+int sheen_config_dump(const sheen_config *c,int fd){if(!c)return EINVAL;const char *last="";for(size_t i=0;i<c->count;i++){entry const *e=&c->entries[i];if(strcmp(last,e->section)){dprintf(fd,"[%s]\\n",e->section);last=e->section;}dprintf(fd,"%s=%s\\n",e->key,e->value);}return 0;}
