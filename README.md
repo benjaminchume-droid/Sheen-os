@@ -46,6 +46,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 3.3 — display manager: complete
 - Stage 3.4 — audio engine foundation: complete
 - Stage 3.5 — input engine: complete
+- Stage 3.6 — TV input abstraction: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -73,4 +74,5 @@ See:
 - docs/DISPLAY-MANAGER-3.3.md
 - docs/AUDIO-3.4.md
 - docs/INPUT-3.5.md
+- docs/TV-INPUT-3.6.md
 - docs/ROADMAP.md
