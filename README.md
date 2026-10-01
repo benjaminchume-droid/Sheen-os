@@ -157,3 +157,5 @@ See:
 - Stage 8.3 — Android graphics bridge foundation: complete
 
 - Stage 8.4 — Android input bridge foundation: complete
+
+- Stage 8.5 — Android audio bridge foundation: complete
