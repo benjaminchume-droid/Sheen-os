@@ -138,3 +138,5 @@ sh "$ROOT/tools/test-android-capabilities.sh"
 sh "$ROOT/tools/test-sheen-api.sh"
 
 sh "$ROOT/tools/test-app-lifecycle.sh"
+
+sh "$ROOT/tools/test-permissions.sh"
