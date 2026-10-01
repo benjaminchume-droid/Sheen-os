@@ -388,6 +388,12 @@ jobs:
       - name: Test generic application permissions
         run: sh ./tools/test-permissions.sh
 
+      - name: Validate application sandbox contract
+        run: sh ./tools/validate-app-sandbox.sh
+
+      - name: Test application sandbox
+        run: sh ./tools/test-app-sandbox.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
