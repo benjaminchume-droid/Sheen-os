@@ -55,6 +55,12 @@ jobs:
       - name: Test service manager
         run: sh ./tools/test-service-manager.sh
 
+      - name: Validate IPC bus contract
+        run: sh ./tools/validate-ipc-bus.sh
+
+      - name: Test IPC bus
+        run: sh ./tools/test-ipc-bus.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
