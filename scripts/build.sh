@@ -67,7 +67,10 @@ printf '%s\n' /dev /dev/pts /proc /sys /run /tmp /bin /sbin /usr/bin /usr/sbin /
 
 rm -f "$IMAGE"
 dd if=/dev/zero of="$IMAGE" bs=1M count="$SHEEN_IMAGE_SIZE_MB" status=none
-sgdisk --clear --new=1:2048:0 --typecode=1:ef00 --change-name=1:SHEEN-ESP "$IMAGE"
+sgdisk --clear \
+    --new=1:2048:+${SHEEN_ESP_SIZE_MB}M --typecode=1:ef00 --change-name=1:SHEEN-ESP \
+    --new=2:0:0 --typecode="$SHEEN_ROOT_PARTITION_TYPE" --change-name=2:SHEEN-ROOT \
+    "$IMAGE"
 
 loop="$(losetup --find --show --partscan "$IMAGE")"
 cleanup() {
@@ -78,11 +81,12 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 udevadm settle 2>/dev/null || true
-part="${loop}p1"
-mkfs.vfat -F 32 -n SHEEN "$part" >/dev/null
+esp_part="${loop}p1"
+root_part="${loop}p2"
+mkfs.vfat -F 32 -n SHEEN "$esp_part" >/dev/null
 
 mkdir -p "$BUILD/mnt/efi"
-mount "$part" "$BUILD/mnt/efi"
+mount "$esp_part" "$BUILD/mnt/efi"
 mkdir -p "$BUILD/mnt/efi/sheen"
 
 grub-install --target="$SHEEN_GRUB_TARGET" --efi-directory="$BUILD/mnt/efi"     --boot-directory="$BUILD/mnt/efi/boot"     --removable --no-nvram --recheck
@@ -91,6 +95,12 @@ cp "$KERNEL/bzImage" "$BUILD/mnt/efi/sheen/kernel"
 cp "$INITRAMFS/initramfs.img" "$BUILD/mnt/efi/sheen/initramfs.img"
 mkdir -p "$BUILD/mnt/efi/boot/grub"
 cp "$ROOT/boot/bootloader/grub/grub.cfg" "$BUILD/mnt/efi/boot/grub/grub.cfg"
+
+# Install the real ext4 root filesystem into the second GPT partition and expand it.
+e2fsck -fy "$BUILD/rootfs/sheen-rootfs.ext4" >/dev/null
+dd if="$BUILD/rootfs/sheen-rootfs.ext4" of="$root_part" bs=4M conv=fsync status=none
+e2fsck -fy "$root_part" >/dev/null
+resize2fs "$root_part" >/dev/null
 
 cat > "$BUILD/BUILD-METADATA" <<EOF
 target=$TARGET
