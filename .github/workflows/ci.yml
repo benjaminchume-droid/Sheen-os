@@ -1,11 +1,26 @@
 name: Sheen OS CI
+
 on:
   push:
   pull_request:
+
 jobs:
-  structure:
+  stage1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate architecture
-        run: test -f README.md && test -f configs/x86_64-usb.toml && test -f scripts/build.sh
+
+      - name: Install build dependencies
+        run: sudo ./scripts/install-deps-debian.sh
+
+      - name: Build Stage 1
+        run: sudo ./scripts/build.sh
+
+      - name: Validate Stage 1
+        run: ./scripts/test.sh
+
+      - name: Publish boot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sheen-x86_64-uefi-usb
+          path: out/sheen-x86_64-uefi.img
