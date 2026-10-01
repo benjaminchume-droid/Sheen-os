@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "sheen/stream.h"
 
-struct sheen_stream { sheen_stream_type type; int fd; int eof; uint64_t remaining; int has_length; char uri[4096]; };
+struct sheen_stream { sheen_stream_type type; int fd; int eof; uint64_t remaining; int has_length; char uri[4096]; unsigned char prefix[16384]; size_t prefix_len; size_t prefix_pos; };
 static int parse_host_port(const char *authority,char *host,size_t host_n,char *port,size_t port_n,const char *default_port){
     if(!authority||!host||!port)return -1;const char *colon=strrchr(authority,':');
     if(colon&&strchr(authority,']')==NULL){size_t hn=(size_t)(colon-authority);if(hn==0||hn>=host_n)return -1;memcpy(host,authority,hn);host[hn]=0;snprintf(port,port_n,"%s",colon+1);}
@@ -39,7 +39,7 @@ static int open_http(sheen_stream *s,const char *uri){
     char headers[16384];size_t got=0;size_t body_start=0;int found=0;while(got+1<sizeof(headers)){ssize_t r=recv(fd,headers+got,sizeof(headers)-got-1,0);if(r<0){if(errno==EINTR)continue;close(fd);return -1;}if(!r)break;got+=(size_t)r;headers[got]=0;char *sep=strstr(headers,"\r\n\r\n");if(sep){found=1;body_start=(size_t)(sep+4-headers);break;}}
     if(!found){close(fd);return -1;} char *copy=malloc(body_start+1);if(!copy){close(fd);return -1;}memcpy(copy,headers,body_start);copy[body_start]=0;
     int rc=parse_http_headers(s,copy,body_start);free(copy);if(rc==-2||rc<0){close(fd);return -1;}
-    s->fd=fd;if(body_start<got){size_t body=got-body_start;char *prefix=malloc(body);if(!prefix){close(fd);return -1;}memcpy(prefix,headers+body_start,body);close(fd);s->fd=-1;free(prefix);return -1;}
+    s->fd=fd;if(body_start<got){size_t body=got-body_start;if(body>sizeof(s->prefix))body=sizeof(s->prefix);memcpy(s->prefix,headers+body_start,body);s->prefix_len=body;s->prefix_pos=0;}
     return 0;
 }
 static int open_udp(sheen_stream *s,const char *uri){
@@ -50,7 +50,7 @@ static int open_udp(sheen_stream *s,const char *uri){
     freeaddrinfo(res);s->fd=fd;return 0;
 }
 sheen_stream *sheen_stream_open(const char *uri){if(!uri||!*uri)return NULL;sheen_stream *s=calloc(1,sizeof(*s));if(!s)return NULL;s->fd=-1;snprintf(s->uri,sizeof(s->uri),"%s",uri);if(!strncmp(uri,"file://",7)||uri[0]=='/'){s->type=SHEEN_STREAM_FILE;const char *p=!strncmp(uri,"file://",7)?uri+7:uri;s->fd=open(p,O_RDONLY|O_CLOEXEC);if(s->fd<0){free(s);return NULL;}return s;}if(!strncmp(uri,"http://",7)){s->type=SHEEN_STREAM_HTTP;if(open_http(s,uri)==0)return s;}else if(!strncmp(uri,"udp://",6)){s->type=SHEEN_STREAM_UDP;if(open_udp(s,uri)==0)return s;}free(s);return NULL;}
-ssize_t sheen_stream_read(sheen_stream *s,void *buffer,size_t capacity){if(!s||s->fd<0||!buffer||!capacity)return -1;for(;;){ssize_t r=recv(s->fd,buffer,capacity,0);if(s->type==SHEEN_STREAM_FILE)r=read(s->fd,buffer,capacity);if(r<0&&errno==EINTR)continue;if(r<0)return -1;if(r==0){s->eof=1;return 0;}if(s->has_length){if((uint64_t)r>s->remaining)r=(ssize_t)s->remaining;s->remaining-=(uint64_t)r;if(s->remaining==0)s->eof=1;}return r;}}
+ssize_t sheen_stream_read(sheen_stream *s,void *buffer,size_t capacity){if(!s||s->fd<0||!buffer||!capacity)return -1;if(s->prefix_pos<s->prefix_len){size_t n=s->prefix_len-s->prefix_pos;if(n>capacity)n=capacity;memcpy(buffer,s->prefix+s->prefix_pos,n);s->prefix_pos+=n;if(s->prefix_pos==s->prefix_len)s->prefix_pos=s->prefix_len;return (ssize_t)n;}for(;;){ssize_t r;if(s->type==SHEEN_STREAM_FILE)r=read(s->fd,buffer,capacity);else r=recv(s->fd,buffer,capacity,0);if(r<0&&errno==EINTR)continue;if(r<0)return -1;if(r==0){s->eof=1;return 0;}if(s->has_length){if((uint64_t)r>s->remaining)r=(ssize_t)s->remaining;s->remaining-=(uint64_t)r;if(s->remaining==0)s->eof=1;}return r;}}
 int sheen_stream_eof(const sheen_stream *s){return s?s->eof:1;}
 void sheen_stream_close(sheen_stream *s){if(!s)return;if(s->fd>=0)close(s->fd);free(s);}
 sheen_stream_type sheen_stream_type_get(const sheen_stream *s){return s?s->type:SHEEN_STREAM_FILE;}
