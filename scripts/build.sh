@@ -12,7 +12,7 @@ IMAGE="$BUILD/sheen-$TARGET.img"
 TARGET_FILE="$ROOT/build/targets/$TARGET.env"
 [ -f "$TARGET_FILE" ] || { echo "unknown target: $TARGET" >&2; exit 1; }
 . "$TARGET_FILE"
-"$ROOT/tools/validate-kernel.sh" "$TARGET"
+sh "$ROOT/tools/validate-kernel.sh" "$TARGET"
 
 need() {
     command -v "$1" >/dev/null 2>&1 || { echo "missing host tool: $1" >&2; exit 1; }
