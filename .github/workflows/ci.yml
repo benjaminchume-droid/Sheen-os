@@ -172,6 +172,12 @@ jobs:
       - name: Test tuner integration
         run: sh ./tools/test-tuner.sh
 
+      - name: Validate broadcast contract
+        run: sh ./tools/validate-broadcast.sh
+
+      - name: Test broadcast abstraction
+        run: sh ./tools/test-broadcast.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
