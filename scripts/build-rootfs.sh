@@ -18,7 +18,8 @@ mkfs.ext4 -F -L SHEENROOT "$IMAGE" >/dev/null
 cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
-mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/usr/lib" "$MNT/etc/sheen/services" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/usr/lib" "$MNT/etc/sheen/services"
+mkdir -p "$BUILD/media" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
@@ -51,6 +52,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/medi
 chmod 0755 "$MNT/usr/sbin/sheen-mpegts-demux"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/playback/include" -c "$ROOT/media/playback/decode-pipeline.c" -o "$BUILD/decode-pipeline.o"
 ar rcs "$MNT/usr/lib/libsheen-decode.a" "$BUILD/decode-pipeline.o"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/audio/include" -c "$ROOT/media/audio/audio-pipeline.c" -o "$BUILD/media/audio-pipeline.o"
+ar rcs "$MNT/usr/lib/libsheen-audio.a" "$BUILD/media/audio-pipeline.o"
 chmod 0755 "$MNT/usr/sbin/sheen-evdev-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-alsa-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/system/display/display-manager.c" -o "$MNT/usr/libexec/sheen-display-manager"
