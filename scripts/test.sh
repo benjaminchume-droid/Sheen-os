@@ -1,11 +1,15 @@
 #!/bin/sh
 set -eu
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
-BUILD="$ROOT/out"
-test -s "$BUILD/kernel/bzImage"
-test -s "$BUILD/initramfs/initramfs.img"
-test -s "$BUILD/sheen-x86_64-uefi.img"
+TARGET="${1:-x86_64-uefi-usb}"
+BUILD="$ROOT/out/$TARGET"
+IMAGE="$BUILD/sheen-$TARGET.img"
+
+[ -s "$BUILD/kernel/bzImage" ]
+[ -s "$BUILD/initramfs/initramfs.img" ]
+[ -s "$IMAGE" ]
+[ -s "$BUILD/BUILD-METADATA" ]
 file "$BUILD/kernel/bzImage"
 file "$BUILD/initramfs/initramfs.img"
-file "$BUILD/sheen-x86_64-uefi.img"
-echo "Sheen Stage 1 artifact checks passed."
+file "$IMAGE"
+echo "Sheen target artifact checks passed: $TARGET"
