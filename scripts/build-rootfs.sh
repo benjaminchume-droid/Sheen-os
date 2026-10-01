@@ -69,6 +69,9 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/recording/inclu
 chmod 0755 "$MNT/usr/sbin/sheen-record"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/epg/include" "$ROOT/tv/epg/epg-dvb.c" "$ROOT/tv/epg/epg-xmltv.c" "$ROOT/tv/epg/epg-probe.c" -o "$MNT/usr/sbin/sheen-epg-probe" -lexpat
 chmod 0755 "$MNT/usr/sbin/sheen-epg-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/casting/discovery/include" "$ROOT/casting/discovery/discovery.c" "$ROOT/casting/discovery/discovery-cli.c" -o "$MNT/usr/sbin/sheen-cast-discover"
+chmod 0755 "$MNT/usr/sbin/sheen-cast-discover"
+chmod 0755 "$MNT/usr/sbin/sheen-epg-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/dvr/include" "$ROOT/tv/dvr/dvr.c" "$ROOT/tv/dvr/dvr-cli.c" -o "$MNT/usr/sbin/sheen-dvr" -lsqlite3 -ldl -lpthread -lm
 chmod 0755 "$MNT/usr/sbin/sheen-dvr"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/streaming/include" -I"$ROOT/tv/live/include" -I"$ROOT/tv/network/include" "$ROOT/media/streaming/stream.c" "$ROOT/tv/live/live-session.c" "$ROOT/tv/network/network-tv.c" "$ROOT/tv/network/network-tv-cli.c" -o "$MNT/usr/sbin/sheen-network-tv"
