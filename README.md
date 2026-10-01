@@ -31,6 +31,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 1.1 — Linux kernel foundation: complete
 - Stage 1.2 — UEFI boot foundation: complete
 - Stage 1.3 — initramfs foundation: complete
+- Stage 1.4 — native PID 1 foundation: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -42,4 +43,5 @@ See:
 - docs/KERNEL-1.1.md
 - docs/UEFI-1.2.md
 - docs/INITRAMFS-1.3.md
+- docs/PID1-1.4.md
 - docs/ROADMAP.md
