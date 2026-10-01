@@ -232,6 +232,12 @@ jobs:
       - name: Test media casting
         run: sh ./tools/test-media-cast.sh
 
+      - name: Validate mirror contract
+        run: sh ./tools/validate-mirror.sh
+
+      - name: Test screen mirroring ingress
+        run: sh ./tools/test-mirror.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
