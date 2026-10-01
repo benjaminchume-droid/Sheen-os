@@ -244,6 +244,12 @@ jobs:
       - name: Test WFD RTSP negotiation
         run: sh ./tools/test-wfd.sh
 
+      - name: Validate WebRTC contract
+        run: sh ./tools/validate-webrtc.sh
+
+      - name: Test WebRTC SDP and ICE
+        run: sh ./tools/test-webrtc.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
