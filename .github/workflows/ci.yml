@@ -268,6 +268,18 @@ jobs:
       - name: Test Vision frame pipeline
         run: sh ./tools/test-vision-frame.sh
 
+      - name: Validate Vision acceleration contract
+        run: sh ./tools/validate-vision-accel.sh
+
+      - name: Test Vision acceleration
+        run: sh ./tools/test-vision-accel.sh
+
+      - name: Validate scaler contract
+        run: sh ./tools/validate-scaler.sh
+
+      - name: Test scaler
+        run: sh ./tools/test-scaler.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
