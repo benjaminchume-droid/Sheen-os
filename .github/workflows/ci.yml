@@ -328,6 +328,12 @@ jobs:
       - name: Test Android graphics bridge
         run: sh ./tools/test-android-graphics.sh
 
+      - name: Validate Android input contract
+        run: sh ./tools/validate-android-input.sh
+
+      - name: Test Android input bridge
+        run: sh ./tools/test-android-input.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
