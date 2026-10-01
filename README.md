@@ -56,6 +56,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 4.7 — subtitle engine: complete
 - Stage 4.8 — streaming: complete
 - Stage 4.9 — media library: complete
+- Stage 4.10 — recording engine: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -93,4 +94,5 @@ See:
 - docs/SUBTITLES-4.7.md
 - docs/STREAMING-4.8.md
 - docs/MEDIA-LIBRARY-4.9.md
+- docs/RECORDING-4.10.md
 - docs/ROADMAP.md
