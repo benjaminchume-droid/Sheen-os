@@ -1,0 +1,4 @@
+#include <stdio.h>
+#include <string.h>
+#include "sheen/recording.h"
+int main(int argc,char **argv){if(argc!=3){fprintf(stderr,"usage: %s DESTINATION CONTAINER\\n",argv[0]);return 2;}sheen_recorder *r=sheen_recording_open(argv[1],"stdin",argv[2]);if(!r){perror("recording open");return 1;}char b[65536];for(;;){size_t n=fread(b,1,sizeof(b),stdin);if(n&&sheen_recording_write(r,b,n)){fprintf(stderr,"recording write failed\\n");sheen_recording_abort(r);sheen_recording_close(r);return 1;}if(n<sizeof(b)){if(ferror(stdin)){sheen_recording_abort(r);sheen_recording_close(r);return 1;}break;}}if(sheen_recording_finalize(r)){fprintf(stderr,"recording finalize failed\\n");sheen_recording_abort(r);sheen_recording_close(r);return 1;}sheen_recording_info i;sheen_recording_info_get(r,&i);printf("{\"id\":\"%s\",\"destination\":\"%s\",\"bytes_written\":%llu,\"state\":%d}\n",i.id,i.destination,(unsigned long long)i.bytes_written,i.state);sheen_recording_close(r);return 0;}
