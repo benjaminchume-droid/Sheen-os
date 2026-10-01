@@ -1,0 +1,3 @@
+#include <stdio.h>
+#include "sheen/live.h"
+int main(int argc,char **argv){if(argc!=2){fprintf(stderr,"usage: %s SOURCE\\n",argv[0]);return 2;}sheen_live_session *s=sheen_live_open(argv[1]);if(!s)return 1;if(sheen_live_play(s)){sheen_live_close(s);return 1;}unsigned char b[4096];unsigned long long total=0;for(;;){ssize_t n=sheen_live_read(s,b,sizeof(b));if(n<0){sheen_live_close(s);return 1;}if(n==0)break;total+=(unsigned long long)n;}sheen_live_info i;sheen_live_info_get(s,&i);printf("{\"session_id\":\"%s\",\"state\":\"%s\",\"bytes_read\":%llu}\n",i.session_id,sheen_live_state_name(i.state),total);sheen_live_close(s);return 0;}
