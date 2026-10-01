@@ -238,6 +238,12 @@ jobs:
       - name: Test screen mirroring ingress
         run: sh ./tools/test-mirror.sh
 
+      - name: Validate WFD contract
+        run: sh ./tools/validate-wfd.sh
+
+      - name: Test WFD RTSP negotiation
+        run: sh ./tools/test-wfd.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
