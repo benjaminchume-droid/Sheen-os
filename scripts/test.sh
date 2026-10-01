@@ -70,3 +70,5 @@ sh "$ROOT/tools/test-recording.sh"
 sh "$ROOT/tools/test-tuner.sh"
 
 sh "$ROOT/tools/test-broadcast.sh"
+
+sh "$ROOT/tools/test-scan.sh"
