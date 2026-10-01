@@ -109,6 +109,7 @@ See:
 - docs/MIRROR-6.3.md
 - docs/WEBRTC-6.5.md
 - docs/CAST-SESSION-6.6.md
+- docs/CAST-DEVICES-6.7.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -127,3 +128,5 @@ See:
 - Stage 6.5 — WebRTC receiver transport foundation: complete
 
 - Stage 6.6 — casting session manager: complete
+
+- Stage 6.7 — multi-device management: complete
