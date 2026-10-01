@@ -48,6 +48,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-codec
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-decoder-session.c" -o "$MNT/usr/sbin/sheen-v4l2-decoder-session"
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-decoder-session"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/subtitles/include" "$ROOT/media/subtitles/subtitle-parser.c" "$ROOT/media/subtitles/subtitle-probe.c" -o "$MNT/usr/sbin/sheen-subtitle-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/demux/include" -I"$ROOT/media/library/include" "$ROOT/media/demux/container.c" "$ROOT/media/library/media-library.c" "$ROOT/media/library/media-library-scan.c" -o "$MNT/usr/sbin/sheen-media-index" -lsqlite3 -ldl -lpthread -lm
+chmod 0755 "$MNT/usr/sbin/sheen-media-index"
 chmod 0755 "$MNT/usr/sbin/sheen-subtitle-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/streaming/include" "$ROOT/media/streaming/stream.c" "$ROOT/media/streaming/stream-probe.c" -o "$MNT/usr/sbin/sheen-stream-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-stream-probe"
