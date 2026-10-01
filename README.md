@@ -155,3 +155,5 @@ See:
 - Stage 8.1 — Android runtime isolation foundation: complete
 
 - Stage 8.3 — Android graphics bridge foundation: complete
+
+- Stage 8.4 — Android input bridge foundation: complete
