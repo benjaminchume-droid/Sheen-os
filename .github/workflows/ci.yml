@@ -61,6 +61,12 @@ jobs:
       - name: Test IPC bus
         run: sh ./tools/test-ipc-bus.sh
 
+      - name: Validate configuration contract
+        run: sh ./tools/validate-config.sh
+
+      - name: Test configuration system
+        run: sh ./tools/test-config.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
