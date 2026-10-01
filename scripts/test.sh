@@ -52,3 +52,5 @@ sh "$ROOT/tools/test-container.sh"
 sh "$ROOT/tools/test-codec.sh"
 
 sh "$ROOT/tools/test-demux.sh"
+
+sh "$ROOT/tools/test-decoder.sh"
