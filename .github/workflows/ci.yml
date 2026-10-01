@@ -358,6 +358,12 @@ jobs:
       - name: Test Android TV behavior
         run: sh ./tools/test-android-tv.sh
 
+      - name: Validate Android APK package contract
+        run: sh ./tools/validate-android-package.sh
+
+      - name: Test Android APK package manager
+        run: sh ./tools/test-android-package.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
