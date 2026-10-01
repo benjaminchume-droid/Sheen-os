@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "sheen/config.h"
 static void usage(const char *p){fprintf(stderr,"usage: %s --file PATH <get SECTION KEY | set SECTION KEY VALUE | dump>\\n",p);}
 int main(int argc,char **argv){if(argc<4||strcmp(argv[1],"--file")){usage(argv[0]);return 2;}const char *file=argv[2];const char *op=argv[3];sheen_config *c=sheen_config_create();if(!c)return 1;int rc=sheen_config_load(c,file);if(rc&&!(rc==2&&(!strcmp(op,"set")))){fprintf(stderr,"load failed: %d\\n",rc);sheen_config_destroy(c);return 1;}
