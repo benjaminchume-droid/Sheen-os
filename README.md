@@ -139,3 +139,7 @@ See:
 - Stage 7.2 — Vision hardware acceleration inventory: complete
 - Stage 7.3 — Vision scaling: complete
 - Stage 7.4 — classical super-resolution: complete
+
+- Stage 7.5 — denoising: complete
+- Stage 7.6 — deblocking: complete
+- Stage 7.7 — sharpening: complete
