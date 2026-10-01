@@ -10,8 +10,8 @@ command -v sgdisk >/dev/null 2>&1 || { echo "missing host tool: sgdisk" >&2; exi
 command -v mcopy >/dev/null 2>&1 || { echo "missing host tool: mcopy" >&2; exit 1; }
 command -v e2fsck >/dev/null 2>&1 || { echo "missing host tool: e2fsck" >&2; exit 1; }
 sgdisk --verify "$IMAGE" >/dev/null
-p2="$(sgdisk -i=2 "$IMAGE" | sed -n "s/First sector: *//p" | head -n1)"
-l2="$(sgdisk -i=2 "$IMAGE" | sed -n "s/Last sector: *//p" | head -n1)"
+p2="$(sgdisk -i=2 "$IMAGE" | awk "/First sector:/ {print \$3}" | head -n1)"
+l2="$(sgdisk -i=2 "$IMAGE" | awk "/Last sector:/ {print \$3}" | head -n1)"
 [ -n "$p2" ] && [ -n "$l2" ] || { echo "cannot locate USB root partition" >&2; exit 1; }
 [ "$p2" -gt 2048 ] || { echo "USB root partition has unexpected start" >&2; exit 1; }
 root_sectors=$((l2 - p2 + 1))
