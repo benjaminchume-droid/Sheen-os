@@ -292,6 +292,12 @@ jobs:
       - name: Test Vision filters
         run: sh ./tools/test-vision-filters.sh
 
+      - name: Validate HDR SDR contract
+        run: sh ./tools/validate-hdr.sh
+
+      - name: Test HDR SDR processing
+        run: sh ./tools/test-hdr.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
