@@ -104,6 +104,8 @@ See:
 - docs/TIMESHIFT-5.7.md
 - docs/DVR-5.8.md
 - docs/NETWORK-TV-5.9.md
+- docs/CAST-DISCOVERY-6.1.md
+- docs/MEDIA-CAST-6.2.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -115,3 +117,5 @@ See:
 - Stage 5.8 — DVR scheduler: complete
 
 - Stage 5.9 — network TV: complete
+- Stage 6.1 — casting discovery: complete
+- Stage 6.2 — media casting: complete
