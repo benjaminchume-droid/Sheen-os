@@ -107,6 +107,7 @@ See:
 - docs/CAST-DISCOVERY-6.1.md
 - docs/MEDIA-CAST-6.2.md
 - docs/MIRROR-6.3.md
+- docs/WEBRTC-6.5.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -121,3 +122,5 @@ See:
 - Stage 6.1 — casting discovery: complete
 - Stage 6.2 — media casting: complete
 - Stage 6.3 — screen mirroring ingress: complete
+
+- Stage 6.5 — WebRTC receiver transport foundation: complete
