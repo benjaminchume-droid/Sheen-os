@@ -1,49 +1,22 @@
 # Sheen Interface Registry
 
-These are Stage 0.1 stable subsystem boundaries. They are contracts, not implementations.
+These are the stable subsystem boundaries defined in Stage 0.1. Their concrete v1 semantic contracts now live under sdk/api/v1/.
 
-## HardwareManager
-Enumerate devices, identify capabilities, subscribe to device changes, expose health.
+| Boundary | v1 contract |
+|---|---|
+| HardwareManager | sdk/api/v1/hardware-manager.json |
+| ServiceManager | sdk/api/v1/service-manager.json |
+| IpcBus | sdk/api/v1/ipc-bus.json |
+| PermissionManager | sdk/api/v1/permission-manager.json |
+| SessionManager | sdk/api/v1/session-manager.json |
+| DisplayManager | sdk/api/v1/display-manager.json |
+| AudioManager | sdk/api/v1/audio-manager.json |
+| MediaEngine | sdk/api/v1/media-engine.json |
+| TvManager | sdk/api/v1/tv-manager.json |
+| CastManager | sdk/api/v1/cast-manager.json |
+| VisionEngine | sdk/api/v1/vision-engine.json |
+| AndroidManager | sdk/api/v1/android-manager.json |
+| StorageManager | sdk/api/v1/storage-manager.json |
+| InputManager | sdk/api/v1/input-manager.json |
 
-## ServiceManager
-Register services, start/stop/restart services, declare dependencies, expose health.
-
-## IpcBus
-Service discovery, request/response, events, cancellation and version negotiation.
-
-## PermissionManager
-Declare capabilities, grant/revoke access and authorize operations.
-
-## SessionManager
-Create sessions, attach resources, emit lifecycle events and release resources.
-
-## DisplayManager
-Enumerate displays, negotiate modes/color capabilities and create output sessions.
-
-## AudioManager
-Enumerate inputs/outputs, route audio, negotiate formats and control volume/mute.
-
-## MediaEngine
-Inspect sources, demux, decode, synchronize, seek, subtitles, streaming and recording
-primitives.
-
-## TvManager
-Enumerate tuners, scan, expose channels/services, EPG, live sessions, timeshift and DVR.
-
-## CastManager
-Discovery, receiver sessions, protocol negotiation and media/display session control.
-
-## VisionEngine
-Query capabilities, negotiate frame pipelines, process frames and expose performance state.
-
-## AndroidManager
-Runtime availability, APK install/update/remove, capability discovery and application
-lifecycle plus bridges into Sheen services.
-
-## StorageManager
-Enumerate volumes, mount/unmount, expose capabilities and manage persistent storage.
-
-## InputManager
-Enumerate input devices and normalize remote, keyboard, gamepad and touch events.
-
-Concrete transport and ABI choices are finalized during implementation.
+The contracts are semantic boundaries, not implementations. Concrete transport, ABI, driver, codec, compositor, and Android runtime choices remain implementation concerns.
