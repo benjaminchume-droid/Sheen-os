@@ -2,10 +2,11 @@
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
-BUILD="$ROOT/out"
+TARGET="${1:-x86_64-uefi-usb}"
+BUILD="$ROOT/out/$TARGET"
 KERNEL="$BUILD/kernel"
 INITRAMFS="$BUILD/initramfs"
-IMAGE="$BUILD/sheen-x86_64-uefi.img"
+IMAGE="$BUILD/sheen-$TARGET.img"
 
 . "$ROOT/build/config.env"
 TARGET_FILE="$ROOT/build/targets/$TARGET.env"
@@ -88,5 +89,10 @@ cp "$INITRAMFS/initramfs.img" "$BUILD/mnt/efi/sheen/initramfs.img"
 mkdir -p "$BUILD/mnt/efi/boot/grub"
 cp "$ROOT/boot/bootloader/grub/grub.cfg" "$BUILD/mnt/efi/boot/grub/grub.cfg"
 
+cat > "$BUILD/BUILD-METADATA" <<EOF
+ target=$TARGET
+ kernel=$SHEEN_KERNEL_VERSION
+ image=$IMAGE
+EOF
 sync
 echo "Built: $IMAGE"
