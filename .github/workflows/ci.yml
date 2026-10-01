@@ -220,6 +220,18 @@ jobs:
       - name: Test network TV
         run: sh ./tools/test-network-tv.sh
 
+      - name: Validate casting discovery contract
+        run: sh ./tools/validate-cast-discovery.sh
+
+      - name: Test casting discovery
+        run: sh ./tools/test-cast-discovery.sh
+
+      - name: Validate media casting contract
+        run: sh ./tools/validate-media-cast.sh
+
+      - name: Test media casting
+        run: sh ./tools/test-media-cast.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
