@@ -1,0 +1,15 @@
+#include <ctype.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "sheen/subtitle.h"
+static char *trim(char *s){while(*s&&isspace((unsigned char)*s))s++;char *e=s+strlen(s);while(e>s&&isspace((unsigned char)e[-1]))--e,*e=0;return s;}
+static int parse_time(const char *s,uint64_t *out){unsigned h=0,m=0,sec=0,ms=0;const char *p=s;int n=sscanf(p,"%u:%u:%u,%u",&h,&m,&sec,&ms);if(n!=4)n=sscanf(p,"%u:%u.%u",&m,&sec,&ms),h=0;if(n<3)return -1;if(ms>999)return -1;*out=((uint64_t)h*3600+(uint64_t)m*60+sec)*1000+ms;return 0;}
+static int parse_arrow(char *line,uint64_t *start,uint64_t *end){char *a=strstr(line,"-->");if(!a)return -1;*a=0;char *b=trim(line);char *e=trim(a+3);char *sp=strpbrk(e," \t");if(sp)*sp=0;return parse_time(trim(b),start)||parse_time(e,end);}
+static void append_text(sheen_subtitle_cue *cue,const char *line){size_t have=strlen(cue->text),add=strlen(line);if(have&&have<SHEEN_SUBTITLE_TEXT_MAX-1)cue->text[have++]=10;if(have+add>=SHEEN_SUBTITLE_TEXT_MAX)add=SHEEN_SUBTITLE_TEXT_MAX-have-1;memcpy(cue->text+have,line,add);cue->text[have+add]=0;}
+static int parse_srt(FILE *f,sheen_subtitle_document *d){char line[8192],*p;for(;;){if(!fgets(line,sizeof(line),f))break;p=trim(line);if(!*p)continue;if(isdigit((unsigned char)*p)){if(!fgets(line,sizeof(line),f))break;}if(!parse_arrow(trim(line),&d->cues[d->cue_count].start_ms,&d->cues[d->cue_count].end_ms)){sheen_subtitle_cue *cue=&d->cues[d->cue_count++];cue->text[0]=0;while(fgets(line,sizeof(line),f)){p=trim(line);if(!*p)break;append_text(cue,p);}if(d->cue_count>=SHEEN_SUBTITLE_MAX_CUES)return ENOSPC;}}return 0;}
+static int parse_vtt(FILE *f,sheen_subtitle_document *d){char line[8192],*p;int header=0;while(fgets(line,sizeof(line),f)){p=trim(line);if(!header){if(!strcmp(p,"WEBVTT")||!strncmp(p,"WEBVTT ",7)){header=1;continue;}if(!*p)continue;header=1;}if(!*p)continue;if(strstr(p,"-->")){if(d->cue_count>=SHEEN_SUBTITLE_MAX_CUES)return ENOSPC;if(parse_arrow(p,&d->cues[d->cue_count].start_ms,&d->cues[d->cue_count].end_ms))continue;sheen_subtitle_cue *cue=&d->cues[d->cue_count++];cue->text[0]=0;while(fgets(line,sizeof(line),f)){p=trim(line);if(!*p)break;append_text(cue,p);}}}return 0;}
+const char *sheen_subtitle_format_name(sheen_subtitle_format f){switch(f){case SHEEN_SUBTITLE_SRT:return "srt";case SHEEN_SUBTITLE_WEBVTT:return "webvtt";default:return "unknown";}}
+int sheen_subtitle_parse_file(const char *path,sheen_subtitle_document *d){if(!path||!d)return EINVAL;memset(d,0,sizeof(*d));FILE *f=fopen(path,"r");if(!f)return errno;char first[128]="";if(fgets(first,sizeof(first),f)){char *p=trim(first);if(!strncmp(p,"WEBVTT",6))d->format=SHEEN_SUBTITLE_WEBVTT;else d->format=SHEEN_SUBTITLE_SRT;}else{fclose(f);return EINVAL;}fseek(f,0,SEEK_SET);int rc=d->format==SHEEN_SUBTITLE_WEBVTT?parse_vtt(f,d):parse_srt(f,d);fclose(f);return rc;}
+int sheen_subtitle_find_active(const sheen_subtitle_document *d,uint64_t pos,size_t *first,size_t *count){if(!d||!first||!count)return EINVAL;*first=0;*count=0;for(size_t i=0;i<d->cue_count;i++)if(pos>=d->cues[i].start_ms&&pos<d->cues[i].end_ms){if(!*count)*first=i;(*count)++;}return 0;}
