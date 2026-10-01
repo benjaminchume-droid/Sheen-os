@@ -15,6 +15,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "sheen/android-runtime.h"
+#include "sheen/android-binder.h"
 
 struct sheen_android_runtime {
     sheen_android_runtime_config config;
@@ -84,6 +85,8 @@ static int child_runtime(sheen_android_runtime *r){
     mkdir("/dev/pts",0755);
     mount("proc","/proc","proc",MS_NOSUID|MS_NODEV|MS_NOEXEC,NULL);
     mount("sysfs","/sys","sysfs",MS_NOSUID|MS_NODEV|MS_NOEXEC,NULL);
+    mkdir("/dev/binderfs",0755);
+    (void)sheen_android_binder_mountfs("/dev/binderfs");
 
     char *const argv[]={(char *)r->config.init_path,NULL};
     char *const envp[]={
