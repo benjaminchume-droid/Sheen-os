@@ -166,6 +166,12 @@ jobs:
       - name: Test recording engine
         run: sh ./tools/test-recording.sh
 
+      - name: Validate tuner integration contract
+        run: sh ./tools/validate-tuner.sh
+
+      - name: Test tuner integration
+        run: sh ./tools/test-tuner.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
