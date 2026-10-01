@@ -134,3 +134,5 @@ sh "$ROOT/tools/test-android-tv.sh"
 sh "$ROOT/tools/test-android-package.sh"
 
 sh "$ROOT/tools/test-android-capabilities.sh"
+
+sh "$ROOT/tools/test-sheen-api.sh"
