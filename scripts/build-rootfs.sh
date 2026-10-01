@@ -18,7 +18,7 @@ mkfs.ext4 -F -L SHEENROOT "$IMAGE" >/dev/null
 cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
-mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/etc/sheen/services" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/etc/sheen/services" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
@@ -30,6 +30,8 @@ gcc -std=c11 -O2 -static -s "$ROOT/system/hardware/device-manager.c" -o "$MNT/us
 chmod 0755 "$MNT/usr/sbin/sheen-hw-discover"
 gcc -std=c11 -O2 -static -s "$ROOT/system/services/service-manager.c" -o "$MNT/usr/libexec/sheen-service-manager"
 gcc -std=c11 -O2 -static -s "$ROOT/system/ipc/ipc-bus.c" -o "$MNT/usr/libexec/sheen-ipc-bus"
+gcc -std=c11 -O2 -static -s -I"$ROOT/system/config/include" "$ROOT/system/config/config.c" "$ROOT/system/config/config-cli.c" -o "$MNT/usr/sbin/sheen-config"
+chmod 0755 "$MNT/usr/sbin/sheen-config"
 chmod 0755 "$MNT/usr/libexec/sheen-ipc-bus"
 cp "$ROOT/configs/services/ipc-bus.conf" "$MNT/etc/sheen/services/ipc-bus.conf"
 chmod 0755 "$MNT/usr/libexec/sheen-service-manager"
