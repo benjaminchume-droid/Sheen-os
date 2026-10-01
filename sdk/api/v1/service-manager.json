@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"sheen://api/v1/service-manager",
+  "title":"ServiceManager v1",
+  "type":"object",
+  "operations":{
+    "list_services":{"request":{"type":"object","additionalProperties":false},"response":{"type":"array","items":{"$ref":"#/$defs/service"}}},
+    "get_service":{"request":{"type":"object","required":["service_id"],"properties":{"service_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/service"}},
+    "start":{"request":{"type":"object","required":["service_id"],"properties":{"service_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/service"}},
+    "stop":{"request":{"type":"object","required":["service_id"],"properties":{"service_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/service"}},
+    "restart":{"request":{"type":"object","required":["service_id"],"properties":{"service_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/service"}}
+  },
+  "events":["service.state_changed","service.health_changed","service.failed"],
+  "$defs":{"service":{"type":"object","required":["service_id","state","dependencies"],"properties":{
+    "service_id":{"type":"string"},"state":{"$ref":"#/definitions/state"},"health":{"type":"string"},"dependencies":{"type":"array","items":{"type":"string"}},"capabilities":{"type":"array","items":{"type":"string"}}},"additionalProperties":false},
+    "state":{"type":"string","enum":["registered","starting","ready","active","stopping","stopped","failed","recovering"]}}
+}
