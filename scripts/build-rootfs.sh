@@ -103,6 +103,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/vision/frame-process/include" -c
 ar rcs "$MNT/usr/lib/libsheen-frame-process.a" "$BUILD/vision/frame-process.o"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/vision/adaptive/include" -c "$ROOT/vision/adaptive/adaptive.c" -o "$BUILD/vision/adaptive.o"
 ar rcs "$MNT/usr/lib/libsheen-adaptive.a" "$BUILD/vision/adaptive.o"
+mkdir -p "$MNT/opt/sheen/android" "$MNT/var/lib/sheen/android"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/android/runtime/include" "$ROOT/android/runtime/runtime.c" "$ROOT/android/runtime/runtime-cli.c" -o "$MNT/usr/libexec/sheen-android-runtime"
 chmod 0755 "$MNT/usr/sbin/sheen-evdev-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-alsa-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/system/display/display-manager.c" -o "$MNT/usr/libexec/sheen-display-manager"
