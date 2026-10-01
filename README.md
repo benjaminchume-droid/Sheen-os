@@ -26,6 +26,8 @@ A demo path must not become a hidden architectural dependency.
 ## Current development state
 
 - Stage 0.1 — repository architecture foundation: complete
+- Stage 0.2 — build system: complete
+- Stage 0.3 — target definitions: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
