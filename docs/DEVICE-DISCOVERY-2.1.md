@@ -28,3 +28,8 @@ The binary is installed at `/usr/sbin/sheen-hw-discover` in the real Sheen root 
 ## Scope
 
 2.1 is discovery only. Device initialization, driver ownership, normalized hardware adapters, service lifecycle, and IPC exposure are subsequent stages.
+
+
+## Hardware HAL boundary
+
+Discovery does not own raw sysfs access helpers. Path joining, attribute reads, symlink resolution, and normalized device identity are provided by `hardware/hal/`; this keeps Linux-specific access mechanics behind one reusable boundary.
