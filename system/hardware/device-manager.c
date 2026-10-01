@@ -19,7 +19,8 @@ static void on_signal(int sig){(void)sig;stopping=1;}
 static int mkdir_p(const char *path){
     char buf[4096]; size_t n=strlen(path); if(n>=sizeof(buf)) return -1; memcpy(buf,path,n+1);
     for(size_t i=1;i<n;i++){ if(buf[i]=='/'){buf[i]=0; if(mkdir(buf,0755)<0 && errno!=EEXIST) return -1; buf[i]='/';} }
-    if(mkdir(buf,0755)<0 && errno!=EEXIST) return -1; return 0;
+    if(mkdir(buf,0755)<0 && errno!=EEXIST) return -1;
+    return 0;
 }
 
 static int write_snapshot(const char *discovery,const char *output){
