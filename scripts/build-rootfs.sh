@@ -46,6 +46,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/tuner/include" "$R
 chmod 0755 "$MNT/usr/sbin/sheen-tuner-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/demux/include" -I"$ROOT/tv/tuner/include" -I"$ROOT/tv/broadcast/include" "$ROOT/media/demux/mpegts-demux.c" "$ROOT/tv/broadcast/broadcast.c" "$ROOT/tv/broadcast/broadcast-probe.c" -o "$MNT/usr/sbin/sheen-broadcast-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-broadcast-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/tuner/include" -I"$ROOT/tv/scanning/include" "$ROOT/tv/scanning/scan.c" "$ROOT/tv/scanning/scan-plan.c" "$ROOT/tv/tuner/dvb-frontend.c" -o "$MNT/usr/sbin/sheen-tv-scan-plan"
+chmod 0755 "$MNT/usr/sbin/sheen-tv-scan-plan"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/container.c" "$ROOT/media/demux/container-probe.c" -o "$MNT/usr/sbin/sheen-container-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-container-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-codec-probe.c" -o "$MNT/usr/sbin/sheen-v4l2-codec-probe"
