@@ -8,12 +8,12 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT INT TERM
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/container.c" "$ROOT/media/demux/container-probe.c" -o "$tmp/probe"
 printf "....ftypisom" > "$tmp/mp4.fixture"
-printf "\x1a\x45\xdf\xa3" > "$tmp/mkv.fixture"
+printf "\032\105\337\243" > "$tmp/mkv.fixture"
 printf "OggS" > "$tmp/ogg.fixture"
 dd if=/dev/zero of="$tmp/ts.fixture" bs=188 count=3 status=none
-printf "\x47" | dd of="$tmp/ts.fixture" bs=1 seek=0 conv=notrunc status=none
-printf "\x47" | dd of="$tmp/ts.fixture" bs=1 seek=188 conv=notrunc status=none
-printf "\x47" | dd of="$tmp/ts.fixture" bs=1 seek=376 conv=notrunc status=none
+printf "\107" | dd of="$tmp/ts.fixture" bs=1 seek=0 conv=notrunc status=none
+printf "\107" | dd of="$tmp/ts.fixture" bs=1 seek=188 conv=notrunc status=none
+printf "\107" | dd of="$tmp/ts.fixture" bs=1 seek=376 conv=notrunc status=none
 "$tmp/probe" "$tmp/mp4.fixture" > "$tmp/mp4.json"
 "$tmp/probe" "$tmp/mkv.fixture" > "$tmp/mkv.json"
 "$tmp/probe" "$tmp/ogg.fixture" > "$tmp/ogg.json"
