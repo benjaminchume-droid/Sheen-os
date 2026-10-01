@@ -16,6 +16,9 @@ jobs:
       - name: Validate architecture
         run: sh ./tools/validate-architecture.sh
 
+      - name: Validate target
+        run: sh ./tools/validate-target.sh x86_64-uefi-usb
+
       - name: Build Stage 1
         run: sudo sh ./scripts/build.sh x86_64-uefi-usb
 
