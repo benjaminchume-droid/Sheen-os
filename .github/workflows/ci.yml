@@ -178,6 +178,12 @@ jobs:
       - name: Test broadcast abstraction
         run: sh ./tools/test-broadcast.sh
 
+      - name: Validate scan contract
+        run: sh ./tools/validate-scan.sh
+
+      - name: Test channel scanning plan
+        run: sh ./tools/test-scan.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
