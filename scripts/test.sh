@@ -40,3 +40,5 @@ sh "$ROOT/tools/test-drm.sh"
 sh "$ROOT/tools/test-gpu.sh"
 
 sh "$ROOT/tools/test-display-manager.sh"
+
+sh "$ROOT/tools/test-audio.sh"
