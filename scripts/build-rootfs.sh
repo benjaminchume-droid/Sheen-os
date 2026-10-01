@@ -19,7 +19,7 @@ cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
 mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/usr/lib" "$MNT/etc/sheen/services"
-mkdir -p "$BUILD/media" "$BUILD/tv" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$BUILD/media" "$BUILD/tv" "$BUILD/cast" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
