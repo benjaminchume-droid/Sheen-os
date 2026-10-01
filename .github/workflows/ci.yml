@@ -286,6 +286,12 @@ jobs:
       - name: Test super-resolution
         run: sh ./tools/test-superres.sh
 
+      - name: Validate Vision filters contract
+        run: sh ./tools/validate-vision-filters.sh
+
+      - name: Test Vision filters
+        run: sh ./tools/test-vision-filters.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
