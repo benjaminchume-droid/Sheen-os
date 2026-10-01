@@ -48,7 +48,7 @@ static int action_for_value(int value){
 int sheen_android_translate_evdev(const struct input_event *in,sheen_android_input_event *out){
     if(!in||!out)return EINVAL;
     memset(out,0,sizeof(*out));
-    out->time_ns=(int64_t)in->input_event_sec*1000000000LL+(int64_t)in->input_event_usec*1000LL;
+    out->time_ns=(int64_t)in->time.tv_sec*1000000000LL+(int64_t)in->time.tv_usec*1000LL;
     if(in->type==EV_KEY){
         int key=map_key(in->code);
         if(key<0)return ENOTSUP;
