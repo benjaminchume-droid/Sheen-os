@@ -112,6 +112,12 @@ jobs:
       - name: Test container engine
         run: sh ./tools/test-container.sh
 
+      - name: Validate codec contract
+        run: sh ./tools/validate-codec.sh
+
+      - name: Test codec capability probe
+        run: sh ./tools/test-codec.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
