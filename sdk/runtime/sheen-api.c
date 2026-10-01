@@ -72,6 +72,18 @@ static int json_string(const char *line,const char *key,char *out,size_t cap){
     }
     return EMSGSIZE;
 }
+static int json_quote(const char *src,char *dst,size_t cap){
+    if(!src||!dst||cap<3)return EINVAL;
+    size_t w=0;dst[w++]='"';
+    for(size_t i=0;src[i]&&w+2<cap;i++){
+        unsigned char ch=(unsigned char)src[i];
+        if(ch=='"'||ch=='\\')dst[w++]='\\';
+        else if(ch<32)ch=' ';
+        dst[w++]=(char)ch;
+    }
+    if(w+2>cap)return EMSGSIZE;
+    dst[w++]='"';dst[w]=0;return 0;
+}
 static int connect_unix(const char *path){
     int fd=socket(AF_UNIX,SOCK_STREAM|SOCK_CLOEXEC,0);
     if(fd<0)return -1;
@@ -94,11 +106,12 @@ sheen_api_client *sheen_api_connect(const char *bus,uint32_t timeout_ms){
 int sheen_api_request(sheen_api_client *c,const char *service,const char *operation,const char *payload,sheen_api_response *r){
     if(!c||!service||!operation||!r)return EINVAL;
     if(!payload)payload="{}";
-    char req_id[64],line[70000];
+    char req_id[64],line[70000],eservice[1024],eoperation[1024];
+    if(json_quote(service,eservice,sizeof(eservice))||json_quote(operation,eoperation,sizeof(eoperation)))return EMSGSIZE;
     snprintf(req_id,sizeof(req_id),"%llu",(unsigned long long)++c->sequence);
     int n=snprintf(line,sizeof(line),
-        "{\"type\":\"request\",\"service\":\"%s\",\"operation\":\"%s\",\"request_id\":\"%s\",\"payload\":%s,\"deadline_ms\":%u}\n",
-        service,operation,req_id,payload,c->timeout_ms);
+        "{\"type\":\"request\",\"service\":%s,\"operation\":%s,\"request_id\":\"%s\",\"payload\":%s,\"deadline_ms\":%u}\n",
+        eservice,eoperation,req_id,payload,c->timeout_ms);
     if(n<0||(size_t)n>=sizeof(line))return EMSGSIZE;
     int rc=send_all(c->fd,line,(size_t)n);if(rc)return rc;
     uint64_t deadline=now_ms()+c->timeout_ms;
@@ -124,14 +137,6 @@ int sheen_api_request(sheen_api_client *c,const char *service,const char *operat
         if(r->status[0]&&!strcmp(r->status,"ok"))return 0;
         return EIO;
     }
-}
-int sheen_api_subscribe(sheen_api_client *c,const char *service,const char *event){
-    if(!c||!service||!event)return EINVAL;
-    char line[1024];
-    int n=snprintf(line,sizeof(line),
-        "{\"type\":\"subscribe\",\"service\":\"%s\",\"event\":\"%s\"}\n",service,event);
-    if(n<0||(size_t)n>=sizeof(line))return EMSGSIZE;
-    return send_all(c->fd,line,(size_t)n);
 }
 int sheen_api_next_event(sheen_api_client *c,char *out,size_t cap){
     if(!c||!out||cap<2)return EINVAL;
