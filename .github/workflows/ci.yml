@@ -31,6 +31,9 @@ jobs:
       - name: Validate initramfs contract
         run: sh ./tools/validate-initramfs.sh x86_64-uefi-usb
 
+      - name: Validate PID 1 contract
+        run: sh ./tools/validate-pid1.sh x86_64-uefi-usb
+
   stage1:
     needs: foundation
     runs-on: ubuntu-latest
