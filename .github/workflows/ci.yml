@@ -202,6 +202,12 @@ jobs:
       - name: Test EPG parser
         run: sh ./tools/test-epg.sh
 
+      - name: Validate timeshift contract
+        run: sh ./tools/validate-timeshift.sh
+
+      - name: Test timeshift
+        run: sh ./tools/test-timeshift.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
