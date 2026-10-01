@@ -19,7 +19,7 @@ cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
 mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/usr/libexec" "$MNT/usr/lib" "$MNT/etc/sheen/services"
-mkdir -p "$BUILD/media" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$BUILD/media" "$BUILD/tv" "$MNT/usr/include/sheen" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
@@ -65,6 +65,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/streaming/inclu
 chmod 0755 "$MNT/usr/sbin/sheen-stream-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/recording/include" "$ROOT/media/recording/recording.c" "$ROOT/media/recording/record-cli.c" -o "$MNT/usr/sbin/sheen-record"
 chmod 0755 "$MNT/usr/sbin/sheen-record"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/epg/include" "$ROOT/tv/epg/epg-dvb.c" "$ROOT/tv/epg/epg-xmltv.c" "$ROOT/tv/epg/epg-probe.c" -o "$MNT/usr/sbin/sheen-epg-probe" -lexpat
+chmod 0755 "$MNT/usr/sbin/sheen-epg-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-codec-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/mpegts-demux.c" "$ROOT/media/demux/demux-probe.c" -o "$MNT/usr/sbin/sheen-mpegts-demux"
 chmod 0755 "$MNT/usr/sbin/sheen-mpegts-demux"
