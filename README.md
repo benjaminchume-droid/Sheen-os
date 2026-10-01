@@ -29,6 +29,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 0.4 — API contracts: complete
 - Stage 0.5 — testing infrastructure: complete
 - Stage 1.1 — Linux kernel foundation: complete
+- Stage 1.2 — UEFI boot foundation: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -38,4 +39,5 @@ See:
 - docs/TARGETS.md
 - docs/BUILD.md
 - docs/KERNEL-1.1.md
+- docs/UEFI-1.2.md
 - docs/ROADMAP.md
