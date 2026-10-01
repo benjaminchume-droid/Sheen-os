@@ -50,3 +50,5 @@ sh "$ROOT/tools/test-tv-input.sh"
 sh "$ROOT/tools/test-container.sh"
 
 sh "$ROOT/tools/test-codec.sh"
+
+sh "$ROOT/tools/test-demux.sh"
