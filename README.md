@@ -169,3 +169,5 @@ See:
 - Stage 8.9 — APK package manager foundation: complete
 
 - Stage 8.10 — Android compatibility capabilities: complete
+
+- Stage 9.1 — public Sheen API: complete
