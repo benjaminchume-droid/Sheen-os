@@ -114,3 +114,5 @@ sh "$ROOT/tools/test-hdr.sh"
 sh "$ROOT/tools/test-frame-process.sh"
 
 sh "$ROOT/tools/test-adaptive.sh"
+
+sh "$ROOT/tools/test-android-runtime.sh"
