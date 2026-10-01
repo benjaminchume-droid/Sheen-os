@@ -34,6 +34,8 @@ gcc -std=c11 -O2 -static -s -I"$ROOT/system/config/include" "$ROOT/system/config
 gcc -std=c11 -O2 -static -s -I"$ROOT/system/logging/include" "$ROOT/system/logging/log.c" "$ROOT/system/logging/log-cli.c" -o "$MNT/usr/sbin/sheen-log"
 chmod 0755 "$MNT/usr/sbin/sheen-log"
 gcc -std=c11 -O2 -static -s "$ROOT/system/diagnostics/diagnose.c" -o "$MNT/usr/sbin/sheen-diag"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/hardware/graphics/drm-probe.c" -o "$MNT/usr/sbin/sheen-drm-probe"
+chmod 0755 "$MNT/usr/sbin/sheen-drm-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-diag"
 chmod 0755 "$MNT/usr/sbin/sheen-config"
 chmod 0755 "$MNT/usr/libexec/sheen-ipc-bus"
