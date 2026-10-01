@@ -27,7 +27,7 @@ static int read_prop(const char *base, const char *name, char *buf, size_t len) 
 
 static void emit_property(const char *key, const char *value, int *comma) {
     if (!value || !value[0]) return;
-    printf("%s\"", *comma ? "," : "");
+    printf("%s", *comma ? "," : "");
     json_escape(key);
     putchar(':');
     json_escape(value);
