@@ -27,6 +27,7 @@ Generic x86-64 UEFI USB target for PCs and laptops.
 - UEFI
 - USB
 - GPT/FAT32 ESP
+- ext4 Sheen root partition
 - Linux 6.12.51
 - GRUB removable boot
 - DRM/KMS baseline
