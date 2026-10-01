@@ -71,6 +71,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/epg/include" "$ROO
 chmod 0755 "$MNT/usr/sbin/sheen-epg-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/tv/dvr/include" "$ROOT/tv/dvr/dvr.c" "$ROOT/tv/dvr/dvr-cli.c" -o "$MNT/usr/sbin/sheen-dvr" -lsqlite3 -ldl -lpthread -lm
 chmod 0755 "$MNT/usr/sbin/sheen-dvr"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s -I"$ROOT/media/streaming/include" -I"$ROOT/tv/live/include" -I"$ROOT/tv/network/include" "$ROOT/media/streaming/stream.c" "$ROOT/tv/live/live-session.c" "$ROOT/tv/network/network-tv.c" "$ROOT/tv/network/network-tv-cli.c" -o "$MNT/usr/sbin/sheen-network-tv"
+chmod 0755 "$MNT/usr/sbin/sheen-network-tv"
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-codec-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/mpegts-demux.c" "$ROOT/media/demux/demux-probe.c" -o "$MNT/usr/sbin/sheen-mpegts-demux"
 chmod 0755 "$MNT/usr/sbin/sheen-mpegts-demux"
