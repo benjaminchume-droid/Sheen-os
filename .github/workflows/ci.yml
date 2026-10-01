@@ -316,6 +316,12 @@ jobs:
       - name: Test Android runtime isolation
         run: sh ./tools/test-android-runtime.sh
 
+      - name: Validate Android Binder contract
+        run: sh ./tools/validate-android-binder.sh
+
+      - name: Test Android Binder bridge
+        run: sh ./tools/test-android-binder.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
