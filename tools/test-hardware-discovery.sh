@@ -7,7 +7,7 @@ command -v python3 >/dev/null 2>&1 || { echo "missing host tool: python3" >&2; e
 tmp="$(mktemp -d)"
 cleanup() { rm -rf "$tmp"; }
 trap cleanup EXIT INT TERM
-gcc -std=c11 -O2 -Wall -Wextra -Werror "$ROOT/hardware/discovery/device-discovery.c" -o "$tmp/sheen-hw-discover"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/discovery/device-discovery.c" -o "$tmp/sheen-hw-discover"
 [ -x "$tmp/sheen-hw-discover" ]
 "$tmp/sheen-hw-discover" > "$tmp/devices.jsonl"
 python3 - "$tmp/devices.jsonl" <<'PY'
