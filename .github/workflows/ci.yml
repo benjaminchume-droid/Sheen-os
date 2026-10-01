@@ -118,6 +118,12 @@ jobs:
       - name: Test codec capability probe
         run: sh ./tools/test-codec.sh
 
+      - name: Validate demux contract
+        run: sh ./tools/validate-demux.sh
+
+      - name: Test demux parser
+        run: sh ./tools/test-demux.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
