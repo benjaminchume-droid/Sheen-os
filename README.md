@@ -153,3 +153,5 @@ See:
 
 - Stage 7.10 — adaptive Vision pipeline: complete
 - Stage 8.1 — Android runtime isolation foundation: complete
+
+- Stage 8.3 — Android graphics bridge foundation: complete
