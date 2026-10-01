@@ -256,6 +256,12 @@ jobs:
       - name: Test cast session manager
         run: sh ./tools/test-cast-session.sh
 
+      - name: Validate cast device registry contract
+        run: sh ./tools/validate-cast-devices.sh
+
+      - name: Test multi-device registry
+        run: sh ./tools/test-cast-devices.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
