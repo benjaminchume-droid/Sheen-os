@@ -53,6 +53,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 4.4 — decoder pipeline foundation: complete
 - Stage 4.5 — hardware video decoding foundation: complete
 - Stage 4.6 — audio pipeline foundation: complete
+- Stage 4.7 — subtitle engine: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -87,4 +88,5 @@ See:
 - docs/DECODER-4.4.md
 - docs/HW-DECODER-4.5.md
 - docs/AUDIO-4.6.md
+- docs/SUBTITLES-4.7.md
 - docs/ROADMAP.md
