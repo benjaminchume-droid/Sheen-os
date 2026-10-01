@@ -48,4 +48,5 @@ See:
 - docs/PID1-1.4.md
 - docs/ROOTFS-1.5.md
 - docs/USB-1.6.md
+- docs/FIRST-BOOT-1.7.md
 - docs/ROADMAP.md
