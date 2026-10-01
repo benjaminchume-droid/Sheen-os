@@ -382,6 +382,12 @@ jobs:
       - name: Test application lifecycle
         run: sh ./tools/test-app-lifecycle.sh
 
+      - name: Validate generic permissions contract
+        run: sh ./tools/validate-permissions.sh
+
+      - name: Test generic application permissions
+        run: sh ./tools/test-permissions.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
