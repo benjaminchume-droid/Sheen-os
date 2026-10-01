@@ -5,12 +5,12 @@ TARGET="${1:-x86_64-uefi-usb}"
 BUILD="$ROOT/out/$TARGET"
 IMAGE="$BUILD/sheen-$TARGET.img"
 
-"$ROOT/tools/test-kernel.sh" "$TARGET"
-"$ROOT/tools/test-uefi.sh" "$TARGET"
-"$ROOT/tools/test-initramfs.sh" "$TARGET"
-"$ROOT/tools/test-pid1.sh" "$TARGET"
-"$ROOT/tools/test-rootfs.sh" "$TARGET"
-"$ROOT/tools/test-usb.sh" "$TARGET"
+sh "$ROOT/tools/test-kernel.sh" "$TARGET"
+sh "$ROOT/tools/test-uefi.sh" "$TARGET"
+sh "$ROOT/tools/test-initramfs.sh" "$TARGET"
+sh "$ROOT/tools/test-pid1.sh" "$TARGET"
+sh "$ROOT/tools/test-rootfs.sh" "$TARGET"
+sh "$ROOT/tools/test-usb.sh" "$TARGET"
 [ -s "$BUILD/kernel/bzImage" ]
 [ -s "$BUILD/kernel/.config" ]
 [ -s "$BUILD/kernel/kernel.release" ]
