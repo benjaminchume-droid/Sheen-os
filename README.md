@@ -173,3 +173,5 @@ See:
 - Stage 9.1 — public Sheen API: complete
 
 - Stage 9.2 — application lifecycle: complete
+
+- Stage 9.3 — application permissions: complete
