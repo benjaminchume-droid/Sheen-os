@@ -5,7 +5,7 @@ sh "$ROOT/tools/validate-gpu.sh"
 command -v gcc >/dev/null 2>&1 || { echo "missing host tool: gcc" >&2; exit 1; }
 command -v python3 >/dev/null 2>&1 || { echo "missing host tool: python3" >&2; exit 1; }
 tmp="$(mktemp -d)"
-cleanup(){rm -rf "$tmp";}
+cleanup() { rm -rf "$tmp";}
 trap cleanup EXIT INT TERM
 gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/graphics/gpu-probe.c" -o "$tmp/sheen-gpu-probe"
 "$tmp/sheen-gpu-probe" > "$tmp/gpu.json"
