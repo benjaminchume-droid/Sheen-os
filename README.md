@@ -44,6 +44,7 @@ Sheen is built from real underlying primitives and general-purpose subsystem con
 - Stage 3.1 — DRM/KMS display foundation: complete
 - Stage 3.2 — GPU detection: complete
 - Stage 3.3 — display manager: complete
+- Stage 3.4 — audio engine foundation: complete
 - Stage 1 — executable x86-64 UEFI boot foundation: in progress
 
 See:
@@ -69,4 +70,5 @@ See:
 - docs/DRM-3.1.md
 - docs/GPU-3.2.md
 - docs/DISPLAY-MANAGER-3.3.md
+- docs/AUDIO-3.4.md
 - docs/ROADMAP.md
