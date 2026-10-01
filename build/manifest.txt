@@ -1,0 +1,5 @@
+target=x86_64-uefi-usb
+kernel=linux-6.12.51
+image_format=gpt
+esp_format=fat32
+image_size_mb=512
