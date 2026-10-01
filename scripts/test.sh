@@ -44,3 +44,5 @@ sh "$ROOT/tools/test-display-manager.sh"
 sh "$ROOT/tools/test-audio.sh"
 
 sh "$ROOT/tools/test-input.sh"
+
+sh "$ROOT/tools/test-tv-input.sh"
