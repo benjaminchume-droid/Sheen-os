@@ -17,7 +17,7 @@ sheen_adaptive_stage d={"hdr",SHEEN_REQ_HDR,100,50,50,1};
 if(sheen_adaptive_add_stage(&c,&a)||sheen_adaptive_add_stage(&c,&b)||sheen_adaptive_add_stage(&c,&d))return 1;
 sheen_adaptive_plan p={0};if(sheen_adaptive_build_plan(&c,&p))return 2;
 if(p.selected_count!=2)return 3;
-if(strcmp(c.stages[p.selected_indices[0]].id,"superres"))return 4;
+if(strcmp(c.stages[p.selected_indices[0]].id,"scale"))return 4;
 if(p.estimated_latency_us>500)return 5;
 puts("adaptive ok");return 0;}
 EOF
