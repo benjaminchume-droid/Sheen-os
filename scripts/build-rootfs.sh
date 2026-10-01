@@ -45,6 +45,8 @@ gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/medi
 chmod 0755 "$MNT/usr/sbin/sheen-container-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/media/codecs/v4l2-codec-probe.c" -o "$MNT/usr/sbin/sheen-v4l2-codec-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-v4l2-codec-probe"
+gcc -std=c11 -O2 -Wall -Wextra -Werror -I"$ROOT/media/demux/include" "$ROOT/media/demux/mpegts-demux.c" "$ROOT/media/demux/demux-probe.c" -o "$MNT/usr/sbin/sheen-mpegts-demux"
+chmod 0755 "$MNT/usr/sbin/sheen-mpegts-demux"
 chmod 0755 "$MNT/usr/sbin/sheen-evdev-probe"
 chmod 0755 "$MNT/usr/sbin/sheen-alsa-probe"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -static -s "$ROOT/system/display/display-manager.c" -o "$MNT/usr/libexec/sheen-display-manager"
