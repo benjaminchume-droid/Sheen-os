@@ -130,3 +130,5 @@ sh "$ROOT/tools/test-android-storage.sh"
 sh "$ROOT/tools/test-android-permissions.sh"
 
 sh "$ROOT/tools/test-android-tv.sh"
+
+sh "$ROOT/tools/test-android-package.sh"
