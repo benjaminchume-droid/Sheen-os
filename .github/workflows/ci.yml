@@ -85,6 +85,12 @@ jobs:
       - name: Test GPU detection
         run: sh ./tools/test-gpu.sh
 
+      - name: Validate display manager contract
+        run: sh ./tools/validate-display-manager.sh
+
+      - name: Test display manager
+        run: sh ./tools/test-display-manager.sh
+
       - name: Test hardware discovery
         run: sh ./tools/test-hardware-discovery.sh
 
