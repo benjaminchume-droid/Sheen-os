@@ -28,7 +28,10 @@ int sheen_vision_frame_validate(const sheen_vision_frame *f) {
             return EINVAL;
         size_t min_height=f->height;
         if((f->format==SHEEN_PIXEL_NV12||f->format==SHEEN_PIXEL_P010) && i==1) min_height=(f->height+1)/2;
-        if(f->planes[i].stride < f->width) return EINVAL;
+        uint32_t min_stride=f->width;
+        if(f->format==SHEEN_PIXEL_P010 || f->format==SHEEN_PIXEL_YUV420P && i>0) min_stride=f->width*2;
+        if(f->format==SHEEN_PIXEL_RGBA8888 || f->format==SHEEN_PIXEL_BGRA8888) min_stride=f->width*4;
+        if(f->planes[i].stride < min_stride) return EINVAL;
         if((size_t)f->planes[i].stride * min_height > f->planes[i].size) return EINVAL;
     }
     return 0;
