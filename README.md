@@ -163,3 +163,5 @@ See:
 - Stage 8.6 — Android storage bridge foundation: complete
 
 - Stage 8.7 — Android permission bridge foundation: complete
+
+- Stage 8.8 — Android TV behavior foundation: complete
