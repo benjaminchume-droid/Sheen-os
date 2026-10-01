@@ -28,3 +28,5 @@ sh "$ROOT/tools/test-hardware-discovery.sh" "$TARGET"
 sh "$ROOT/tools/test-device-manager.sh"
 
 sh "$ROOT/tools/test-service-manager.sh"
+
+sh "$ROOT/tools/test-ipc-bus.sh"
