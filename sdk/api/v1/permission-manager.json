@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"sheen://api/v1/permission-manager",
+  "title":"PermissionManager v1",
+  "type":"object",
+  "operations":{
+    "check":{"request":{"type":"object","required":["subject","capability"],"properties":{"subject":{"type":"string"},"capability":{"type":"string"},"resource":{"type":"string"}},"additionalProperties":false},"response":{"type":"object","required":["allowed"],"properties":{"allowed":{"type":"boolean"},"reason":{"type":"string"}}}},
+    "grant":{"request":{"type":"object","required":["subject","capability"],"properties":{"subject":{"type":"string"},"capability":{"type":"string"},"resource":{"type":"string"}},"additionalProperties":false},"response":{"type":"object","required":["granted"],"properties":{"granted":{"type":"boolean"}}}},
+    "revoke":{"request":{"type":"object","required":["subject","capability"],"properties":{"subject":{"type":"string"},"capability":{"type":"string"},"resource":{"type":"string"}},"additionalProperties":false},"response":{"type":"object","required":["revoked"],"properties":{"revoked":{"type":"boolean"}}}}
+  },
+  "events":["permission.changed","permission.denied"]
+}
