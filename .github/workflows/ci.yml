@@ -5,7 +5,25 @@ on:
   pull_request:
 
 jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install test/build dependencies
+        run: sudo sh ./scripts/install-deps-debian.sh
+
+      - name: Validate architecture
+        run: sh ./tools/test-architecture.sh
+
+      - name: Validate API contracts
+        run: sh ./tools/test-contracts.sh
+
+      - name: Validate target
+        run: sh ./tools/validate-target.sh x86_64-uefi-usb
+
   stage1:
+    needs: foundation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,20 +31,14 @@ jobs:
       - name: Install build dependencies
         run: sudo sh ./scripts/install-deps-debian.sh
 
-      - name: Validate architecture
-        run: sh ./tools/validate-architecture.sh
-
-      - name: Validate target
-        run: sh ./tools/validate-target.sh x86_64-uefi-usb
-
       - name: Build Stage 1
         run: sudo sh ./scripts/build.sh x86_64-uefi-usb
 
-      - name: Validate Stage 1
+      - name: Validate Stage 1 artifacts
         run: sh ./scripts/test.sh x86_64-uefi-usb
 
       - name: Publish boot artifact
         uses: actions/upload-artifact@v4
         with:
           name: sheen-x86_64-uefi-usb
-          path: out/sheen-x86_64-uefi.img
+          path: out/x86_64-uefi-usb/sheen-x86_64-uefi-usb.img
