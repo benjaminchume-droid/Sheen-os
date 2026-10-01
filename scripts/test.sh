@@ -84,3 +84,7 @@ sh "$ROOT/tools/test-timeshift.sh"
 sh "$ROOT/tools/test-dvr.sh"
 
 sh "$ROOT/tools/test-network-tv.sh"
+
+sh "$ROOT/tools/test-cast-discovery.sh"
+
+sh "$ROOT/tools/test-media-cast.sh"
