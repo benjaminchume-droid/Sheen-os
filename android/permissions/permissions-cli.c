@@ -2,7 +2,7 @@
 #include <string.h>
 #include "sheen/android-permissions.h"
 int main(int argc,char **argv){
-    if(argc<4){fprintf(stderr,"usage: %s DB check|grant|revoke PACKAGE PERMISSION\n",argv[0]);return 2;}
+    if(argc<5){fprintf(stderr,"usage: %s DB check|grant|revoke PACKAGE PERMISSION\n",argv[0]);return 2;}
     sheen_android_permissions *p=sheen_android_permissions_open(argv[1]);
     if(!p||sheen_android_permissions_init(p)){fprintf(stderr,"permission DB init failed\n");sheen_android_permissions_close(p);return 1;}
     const char *op=argv[2],*pkg=argv[3],*perm=argv[4];
