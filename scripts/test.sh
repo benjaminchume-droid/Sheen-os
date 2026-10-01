@@ -22,3 +22,5 @@ file "$BUILD/kernel/bzImage"
 file "$BUILD/initramfs/initramfs.img"
 file "$IMAGE"
 echo "Sheen target artifact checks passed: $TARGET"
+
+sh "$ROOT/tools/test-hardware-discovery.sh" "$TARGET"
