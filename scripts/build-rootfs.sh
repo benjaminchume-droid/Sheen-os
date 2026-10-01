@@ -18,13 +18,15 @@ mkfs.ext4 -F -L SHEENROOT "$IMAGE" >/dev/null
 cleanup() { set +e; umount "$MNT" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM
 mount -o loop "$IMAGE" "$MNT"
-mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/etc" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
+mkdir -p "$MNT/bin" "$MNT/sbin" "$MNT/usr/bin" "$MNT/usr/sbin" "$MNT/etc" "$MNT/usr/libexec" "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/run" "$MNT/tmp" "$MNT/var" "$MNT/home" "$MNT/root"
 busybox_path="$(command -v busybox)"
 cp "$busybox_path" "$MNT/bin/busybox"
 chmod 0755 "$MNT/bin/busybox"
 for app in sh mount umount cat echo uname basename ls dmesg ps reboot; do ln -sf /bin/busybox "$MNT/bin/$app"; done
 cp "$ROOT/system/init/pid1.c" "$OUT/pid1.c"
 gcc -Os -static -s "$ROOT/system/init/pid1.c" -o "$MNT/sbin/init"
+gcc -std=c11 -O2 -static -s "$ROOT/hardware/discovery/device-discovery.c" -o "$MNT/usr/sbin/sheen-hw-discover"
+chmod 0755 "$MNT/usr/sbin/sheen-hw-discover"
 chmod 0755 "$MNT/sbin/init"
 cat > "$MNT/etc/os-release" <<EOF
 NAME="Sheen OS"
