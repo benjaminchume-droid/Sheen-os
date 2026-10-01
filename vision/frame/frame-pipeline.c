@@ -61,3 +61,5 @@ void sheen_vision_pipeline_close(sheen_vision_pipeline *p) {
     for(size_t i=0;i<p->count;i++) if(p->stages[i].close) p->stages[i].close(p->stages[i].ctx);
     free(p);
 }
+
+void sheen_vision_frame_release(sheen_vision_frame *f){if(!f)return;for(size_t i=0;i<f->plane_count;i++){free(f->planes[i].data);f->planes[i].data=NULL;}memset(f,0,sizeof(*f));}
