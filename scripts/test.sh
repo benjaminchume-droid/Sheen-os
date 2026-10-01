@@ -24,3 +24,5 @@ file "$IMAGE"
 echo "Sheen target artifact checks passed: $TARGET"
 
 sh "$ROOT/tools/test-hardware-discovery.sh" "$TARGET"
+
+sh "$ROOT/tools/test-device-manager.sh"
