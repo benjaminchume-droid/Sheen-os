@@ -3,7 +3,7 @@ set -eu
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 command -v gcc >/dev/null 2>&1 || { echo "missing host tool: gcc" >&2; exit 1; }
 tmp="$(mktemp -d)"
-cleanup(){rm -rf "$tmp";}
+cleanup() { rm -rf "$tmp";}
 trap cleanup EXIT INT TERM
 cat > "$tmp/test.conf" <<EOF
 [system]
