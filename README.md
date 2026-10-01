@@ -97,6 +97,8 @@ See:
 - docs/RECORDING-4.10.md
 - docs/TUNER-5.1.md
 - docs/BROADCAST-5.2.md
+- docs/SCAN-5.3.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
+- Stage 5.3 — channel scanning: complete
