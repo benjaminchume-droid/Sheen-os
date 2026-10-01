@@ -148,6 +148,12 @@ jobs:
       - name: Test subtitle engine
         run: sh ./tools/test-subtitles.sh
 
+      - name: Validate streaming contract
+        run: sh ./tools/validate-streaming.sh
+
+      - name: Test streaming
+        run: sh ./tools/test-streaming.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
