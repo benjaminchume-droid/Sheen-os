@@ -262,6 +262,12 @@ jobs:
       - name: Test multi-device registry
         run: sh ./tools/test-cast-devices.sh
 
+      - name: Validate Vision frame contract
+        run: sh ./tools/validate-vision-frame.sh
+
+      - name: Test Vision frame pipeline
+        run: sh ./tools/test-vision-frame.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
