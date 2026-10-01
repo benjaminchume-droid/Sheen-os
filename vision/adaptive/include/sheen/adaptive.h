@@ -39,6 +39,6 @@ typedef struct {
 
 int sheen_adaptive_add_stage(sheen_adaptive_context *context,
                              const sheen_adaptive_stage *stage);
-int sheen_adaptive_plan(const sheen_adaptive_context *context,
-                        sheen_adaptive_plan *plan);
+int sheen_adaptive_build_plan(const sheen_adaptive_context *context,
+                              sheen_adaptive_plan *plan);
 #endif
