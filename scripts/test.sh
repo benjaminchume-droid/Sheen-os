@@ -140,3 +140,5 @@ sh "$ROOT/tools/test-sheen-api.sh"
 sh "$ROOT/tools/test-app-lifecycle.sh"
 
 sh "$ROOT/tools/test-permissions.sh"
+
+sh "$ROOT/tools/test-app-sandbox.sh"
