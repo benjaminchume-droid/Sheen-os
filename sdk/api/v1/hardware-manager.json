@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"sheen://api/v1/hardware-manager",
+  "title":"HardwareManager v1",
+  "type":"object",
+  "operations":{
+    "list_devices":{"request":{"type":"object","properties":{"class":{"type":"string"},"include_degraded":{"type":"boolean"}},"additionalProperties":false},"response":{"type":"array","items":{"$ref":"#/$defs/device"}}},
+    "get_device":{"request":{"type":"object","required":["device_id"],"properties":{"device_id":{"type":"string"}},"additionalProperties":false},"response":{"$ref":"#/$defs/device"}},
+    "get_capabilities":{"request":{"type":"object","required":["device_id"],"properties":{"device_id":{"type":"string"}},"additionalProperties":false},"response":{"type":"array","items":{"type":"string"}}}
+  },
+  "events":["device.added","device.removed","device.changed","device.health_changed"],
+  "$defs":{
+    "device":{"type":"object","required":["device_id","class","state","capabilities"],"properties":{
+      "device_id":{"type":"string"},"class":{"type":"string"},"name":{"type":"string"},
+      "state":{"type":"string","enum":["present","initializing","ready","degraded","failed","removed"]},
+      "capabilities":{"type":"array","items":{"type":"string"}},"properties":{"type":"object","additionalProperties":true}
+    },"additionalProperties":false}
+  }
+}
