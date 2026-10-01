@@ -171,3 +171,5 @@ See:
 - Stage 8.10 — Android compatibility capabilities: complete
 
 - Stage 9.1 — public Sheen API: complete
+
+- Stage 9.2 — application lifecycle: complete
