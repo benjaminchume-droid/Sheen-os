@@ -352,6 +352,12 @@ jobs:
       - name: Test Android permission bridge
         run: sh ./tools/test-android-permissions.sh
 
+      - name: Validate Android TV contract
+        run: sh ./tools/validate-android-tv.sh
+
+      - name: Test Android TV behavior
+        run: sh ./tools/test-android-tv.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
