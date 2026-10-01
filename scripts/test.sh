@@ -82,3 +82,5 @@ sh "$ROOT/tools/test-epg.sh"
 sh "$ROOT/tools/test-timeshift.sh"
 
 sh "$ROOT/tools/test-dvr.sh"
+
+sh "$ROOT/tools/test-network-tv.sh"
