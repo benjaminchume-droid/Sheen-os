@@ -115,6 +115,7 @@ See:
 - docs/SUPERRES-7.4.md
 - docs/HDR-7.8.md
 - docs/FRAME-PROCESS-7.9.md
+- docs/ADAPTIVE-7.10.md
 - docs/ROADMAP.md
 - Stage 5.1 — Linux tuner integration: complete
 - Stage 5.2 — broadcast abstraction: complete
@@ -148,3 +149,5 @@ See:
 - Stage 7.8 — HDR/SDR processing: complete
 
 - Stage 7.9 — frame processing: complete
+
+- Stage 7.10 — adaptive Vision pipeline: complete
