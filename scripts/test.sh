@@ -48,3 +48,5 @@ sh "$ROOT/tools/test-input.sh"
 sh "$ROOT/tools/test-tv-input.sh"
 
 sh "$ROOT/tools/test-container.sh"
+
+sh "$ROOT/tools/test-codec.sh"
