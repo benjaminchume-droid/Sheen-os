@@ -13,6 +13,9 @@ jobs:
       - name: Install build dependencies
         run: sudo sh ./scripts/install-deps-debian.sh
 
+      - name: Validate architecture
+        run: sh ./tools/validate-architecture.sh
+
       - name: Build Stage 1
         run: sudo sh ./scripts/build.sh
 
