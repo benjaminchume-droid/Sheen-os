@@ -68,3 +68,5 @@ sh "$ROOT/tools/test-media-library.sh"
 sh "$ROOT/tools/test-recording.sh"
 
 sh "$ROOT/tools/test-tuner.sh"
+
+sh "$ROOT/tools/test-broadcast.sh"
