@@ -17,10 +17,10 @@ jobs:
         run: sh ./tools/validate-architecture.sh
 
       - name: Build Stage 1
-        run: sudo sh ./scripts/build.sh
+        run: sudo sh ./scripts/build.sh x86_64-uefi-usb
 
       - name: Validate Stage 1
-        run: sh ./scripts/test.sh
+        run: sh ./scripts/test.sh x86_64-uefi-usb
 
       - name: Publish boot artifact
         uses: actions/upload-artifact@v4
