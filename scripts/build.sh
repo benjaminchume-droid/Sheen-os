@@ -25,7 +25,7 @@ src="$BUILD/src/linux-$SHEEN_KERNEL_VERSION"
 curl -L --fail --retry 3 "$SHEEN_KERNEL_URL" -o "$archive"
 checksum_file="$BUILD/src/sha256sums.asc"
 curl -L --fail --retry 3 https://cdn.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc -o "$checksum_file"
-grep "linux-$SHEEN_KERNEL_VERSION.tar.xz$" "$checksum_file" | sha256sum -c -
+grep "linux-$SHEEN_KERNEL_VERSION.tar.xz$" "$checksum_file" | sed "s#linux-$SHEEN_KERNEL_VERSION.tar.xz#$archive#" | sha256sum -c -
 
 tar -xJf "$archive" -C "$BUILD/src"
 
