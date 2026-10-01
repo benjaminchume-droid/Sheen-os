@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mount.h>
+#include <sys/stat.h>
 #include <sys/reboot.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -29,8 +30,8 @@ static void install_handlers(void) {
     }
 }
 
-static void mount_early(const char *source, const char *target, const char *fstype) {
-    if (mount(source, target, fstype, MS_NOSUID | MS_NODEV | MS_NOEXEC, NULL) < 0 && errno != EBUSY) {
+static void mount_early(const char *source, const char *target, const char *fstype, unsigned long flags) {
+    if (mount(source, target, fstype, flags, NULL) < 0 && errno != EBUSY) {
         fprintf(stderr, "sheen-init: mount %s on %s failed: %s\\n", fstype, target, strerror(errno));
     }
 }
@@ -58,11 +59,11 @@ int main(void) {
     install_handlers();
 
     mkdir("/dev", 0755); mkdir("/dev/pts", 0755); mkdir("/proc", 0555); mkdir("/sys", 0555); mkdir("/run", 0755);
-    mount_early("proc", "/proc", "proc");
-    mount_early("sysfs", "/sys", "sysfs");
-    mount_early("devtmpfs", "/dev", "devtmpfs");
-    mount_early("devpts", "/dev/pts", "devpts");
-    mount_early("tmpfs", "/run", "tmpfs");
+    mount_early("proc", "/proc", "proc", MS_NOSUID | MS_NODEV | MS_NOEXEC);
+    mount_early("sysfs", "/sys", "sysfs", MS_NOSUID | MS_NODEV | MS_NOEXEC);
+    mount_early("devtmpfs", "/dev", "devtmpfs", MS_NOSUID);
+    mount_early("devpts", "/dev/pts", "devpts", MS_NOSUID | MS_NOEXEC);
+    mount_early("tmpfs", "/run", "tmpfs", MS_NOSUID | MS_NODEV | MS_NOEXEC);
 
     printf("\\nSheen OS early userspace\\n");
     printf("PID 1: native sheen-init\\n");
