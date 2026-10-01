@@ -2,7 +2,6 @@
 #define SHEEN_DECODE_H
 #include <stddef.h>
 #include <stdint.h>
-#define SHEEN_DECODE_QUEUE_CAPACITY 32
 #define SHEEN_DECODE_PACKET_MAX 65536
 typedef struct { uint8_t *data; size_t size; int64_t pts; int64_t dts; } sheen_packet;
 typedef struct { uint8_t *data; size_t size; uint32_t width; uint32_t height; uint32_t format; int64_t pts; } sheen_frame;
@@ -16,5 +15,6 @@ int sheen_decode_send_packet(sheen_decoder_pipeline *pipeline,const uint8_t *dat
 int sheen_decode_receive_frame(sheen_decoder_pipeline *pipeline,sheen_frame *frame);
 int sheen_decode_flush(sheen_decoder_pipeline *pipeline);
 sheen_decoder_state sheen_decode_state(const sheen_decoder_pipeline *pipeline);
+/* send() consumes or copies the supplied packet before it returns. Returning EAGAIN applies backpressure without transferring ownership. */
 struct sheen_decoder_backend { int (*open)(void **ctx,const char *codec_id,const void *config,size_t config_size); int (*send)(void *ctx,const sheen_packet *packet); int (*receive)(void *ctx,sheen_frame *frame); int (*flush)(void *ctx); void (*close)(void *ctx); };
 #endif
