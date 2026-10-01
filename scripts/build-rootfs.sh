@@ -25,7 +25,7 @@ chmod 0755 "$MNT/bin/busybox"
 for app in sh mount umount cat echo uname basename ls dmesg ps reboot; do ln -sf /bin/busybox "$MNT/bin/$app"; done
 cp "$ROOT/system/init/pid1.c" "$OUT/pid1.c"
 gcc -Os -static -s "$ROOT/system/init/pid1.c" -o "$MNT/sbin/init"
-gcc -std=c11 -O2 -static -s "$ROOT/hardware/discovery/device-discovery.c" -o "$MNT/usr/sbin/sheen-hw-discover"
+gcc -std=c11 -O2 -static -s -I"$ROOT/hardware/hal/include" "$ROOT/hardware/hal/sheen_hal.c" "$ROOT/hardware/discovery/device-discovery.c" -o "$MNT/usr/sbin/sheen-hw-discover"
 chmod 0755 "$MNT/usr/sbin/sheen-hw-discover"
 chmod 0755 "$MNT/sbin/init"
 cat > "$MNT/etc/os-release" <<EOF
