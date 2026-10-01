@@ -90,3 +90,5 @@ sh "$ROOT/tools/test-cast-discovery.sh"
 sh "$ROOT/tools/test-media-cast.sh"
 
 sh "$ROOT/tools/test-mirror.sh"
+
+sh "$ROOT/tools/test-wfd.sh"
