@@ -154,6 +154,12 @@ jobs:
       - name: Test streaming
         run: sh ./tools/test-streaming.sh
 
+      - name: Validate media library contract
+        run: sh ./tools/validate-media-library.sh
+
+      - name: Test media library
+        run: sh ./tools/test-media-library.sh
+
       - name: Test TV input abstraction
         run: sh ./tools/test-tv-input.sh
 
