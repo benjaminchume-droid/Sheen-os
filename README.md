@@ -95,4 +95,6 @@ See:
 - docs/STREAMING-4.8.md
 - docs/MEDIA-LIBRARY-4.9.md
 - docs/RECORDING-4.10.md
+- docs/TUNER-5.1.md
 - docs/ROADMAP.md
+- Stage 5.1 — Linux tuner integration: complete
