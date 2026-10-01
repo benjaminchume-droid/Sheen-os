@@ -98,3 +98,5 @@ sh "$ROOT/tools/test-webrtc.sh"
 sh "$ROOT/tools/test-cast-session.sh"
 
 sh "$ROOT/tools/test-cast-devices.sh"
+
+sh "$ROOT/tools/test-vision-frame.sh"
